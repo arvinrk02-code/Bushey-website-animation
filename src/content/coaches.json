@@ -1,0 +1,13 @@
+[
+  { "id": "oliver-spisak", "name": "Oliver Spisak", "role": "Head Coach", "group": "Head Coach", "photo": "/images/coach-oliver.png" },
+  { "id": "colin-smyth", "name": "Colin Smyth", "role": "Level 2 Coach", "group": "Coaches" },
+  { "id": "jacqui-price", "name": "Jacqui Price", "role": "Level 2 Coach", "group": "Coaches" },
+  { "id": "lydia-aldeiri", "name": "Lydia Aldeiri", "role": "Level 2 Teacher", "group": "Teachers", "photo": "/images/coach-lydia.jpeg" },
+  { "id": "louisa-walden", "name": "Louisa Walden", "role": "Level 2 Teacher", "group": "Teachers" },
+  { "id": "craig-mackey", "name": "Craig Mackey", "role": "Level 2 Teacher", "group": "Teachers", "photo": "/images/coach-craig.jpeg" },
+  { "id": "kate-atley", "name": "Kate Atley", "role": "Level 2 Teacher", "group": "Teachers" },
+  { "id": "phoebe-griffiths", "name": "Phoebe Griffiths", "role": "Level 2 Teacher", "group": "Teachers" },
+  { "id": "tom-zackrocki", "name": "Tom Zackrocki", "role": "Level 2 Teacher", "group": "Teachers" },
+  { "id": "yuvaan-gulvady", "name": "Yuvaan Gulvady", "role": "Level 2 Teacher", "group": "Teachers" },
+  { "id": "zac-jacobs", "name": "Zac Jacobs", "role": "Level 2 Teacher", "group": "Teachers", "photo": "/images/coach-zac.jpeg" }
+]

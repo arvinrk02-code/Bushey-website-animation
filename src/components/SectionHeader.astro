@@ -1,0 +1,33 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  strap?: string;
+  align?: "left" | "center";
+  dark?: boolean;
+}
+const { eyebrow, title, strap, align = "left", dark = false } = Astro.props;
+---
+
+<div class:list={["max-w-3xl", align === "center" && "mx-auto text-center"]}>
+  <p class:list={["eyebrow reveal", dark ? "text-aqua-400" : "text-aqua-600"]}>{eyebrow}</p>
+  <h2
+    class:list={[
+      "display reveal mt-3 text-[clamp(1.9rem,4.5vw,3.25rem)]",
+      dark ? "text-white" : "text-deep-800",
+    ]}
+    style="--reveal-delay: 0.08s"
+  >
+    {title}
+  </h2>
+  {
+    strap && (
+      <p
+        class:list={["reveal mt-4 text-lg leading-relaxed", dark ? "text-white/65" : "text-ink-600"]}
+        style="--reveal-delay: 0.16s"
+      >
+        {strap}
+      </p>
+    )
+  }
+</div>

@@ -1,0 +1,108 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import CtaBand from "../../components/CtaBand.astro";
+
+export async function getStaticPaths() {
+  const hub = await getCollection("hub");
+  return hub.map((article) => ({ params: { slug: article.id }, props: { article } }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+
+const all = (await getCollection("hub")).sort((a, b) => a.data.order - b.data.order);
+const others = all.filter((a) => a.id !== article.id);
+---
+
+<Base title={article.data.title} description={`${article.data.title} for swimmers, ${article.data.strap}`}>
+  <PageHero
+    eyebrow={`Athlete Hub · Guide ${article.data.order} of ${all.length}`}
+    title={article.data.title}
+    strap={article.data.strap}
+    compact
+  />
+
+  <section class="bg-white py-16 sm:py-24">
+    <div class="mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-[1.5fr_1fr]">
+      <article>
+        <!-- Key takeaways -->
+        <div class="reveal rounded-3xl bg-deep-900 p-7 text-white sm:p-8">
+          <h2 class="eyebrow text-aqua-400">The main points</h2>
+          <ul class="mt-4 grid gap-3 sm:grid-cols-2">
+            {
+              article.data.keyTakeaways.map((t) => (
+                <li class="flex gap-3 rounded-2xl bg-white/5 p-4 text-sm leading-snug text-white/85">
+                  <span class="font-bold text-gold-400" aria-hidden="true">✓</span>
+                  {t}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div class="prose-club reveal mt-10 max-w-none">
+          <Content />
+        </div>
+
+        {
+          article.data.sources.length > 0 && (
+            <div class="reveal mt-12 rounded-3xl border border-foam-200 bg-foam-50 p-7 sm:p-8">
+              <h2 class="display text-lg text-deep-800">More from Swim England</h2>
+              <p class="mt-2 text-sm text-ink-600">
+                This guide follows Swim England guidance. Read more on their website:
+              </p>
+              <ul class="mt-4 space-y-2.5">
+                {article.data.sources.map((s) => (
+                  <li class="flex gap-3 text-sm leading-relaxed">
+                    <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-aqua-500" aria-hidden="true" />
+                    <a
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener"
+                      class="font-semibold text-deep-600 underline decoration-aqua-400 underline-offset-4 hover:text-aqua-600"
+                    >
+                      {s.label} ↗
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+      </article>
+
+      <aside class="reveal" style="--reveal-delay: 0.1s">
+        <div class="sticky top-28 space-y-6">
+          <div class="rounded-3xl border border-foam-200 bg-foam-50 p-7">
+            <h2 class="eyebrow text-aqua-600">More from the Hub</h2>
+            <ul class="mt-4 space-y-1">
+              {
+                others.map((o) => (
+                  <li>
+                    <a href={`/athlete-hub/${o.id}`} class="group flex items-baseline gap-3 rounded-xl px-3 py-2.5 transition hover:bg-white">
+                      <span class="display text-sm text-aqua-500" style="font-variation-settings: 'wdth' 90;">0{o.data.order}</span>
+                      <span class="text-sm font-bold text-deep-800 group-hover:text-aqua-600">{o.data.title}</span>
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+
+          <div class="rounded-3xl border-2 border-gold-400/40 bg-white p-6">
+            <p class="text-sm leading-relaxed text-ink-600">
+              <strong class="text-deep-800">A note on advice:</strong> everything here is general
+              guidance for healthy age-group swimmers, based on Swim England guidance. Each guide
+              links to the relevant Swim England pages at the end. For anything medical or
+              individual, speak to your GP, and always loop in your coach.
+            </p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

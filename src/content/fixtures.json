@@ -1,0 +1,269 @@
+[
+  {
+    "id": "herts-counties",
+    "name": "Hertfordshire County Championships",
+    "month": 1,
+    "order": 1,
+    "typicalTiming": "Mid to late January, usually across two weekends",
+    "venue": "Various venues across Hertfordshire",
+    "level": "County",
+    "squadsInvited": "Qualified swimmers (County A / County B and above)",
+    "note": "The main county target meet of the season. Qualification times apply."
+  },
+  {
+    "id": "major-league-r1",
+    "name": "Hertfordshire Major League, Round 1",
+    "month": 3,
+    "order": 1,
+    "typicalTiming": "Early March",
+    "venue": "Away, venue TBC",
+    "level": "League",
+    "squadsInvited": "Team selected by coaches (Development to county-standard swimmers)",
+    "note": "Team gala. Confirm availability promptly if selected."
+  },
+  {
+    "id": "major-league-r2",
+    "name": "Hertfordshire Major League, Round 2",
+    "month": 3,
+    "order": 2,
+    "typicalTiming": "Late March",
+    "venue": "Away, venue TBC",
+    "level": "League",
+    "squadsInvited": "Team selected by coaches (Development to county-standard swimmers)"
+  },
+  {
+    "id": "club-champs-1",
+    "name": "Club Championships / Time Trials, Round 1",
+    "month": 3,
+    "order": 3,
+    "typicalTiming": "Mid to late March",
+    "venue": "Bushey Grove Leisure Centre",
+    "level": "Internal",
+    "squadsInvited": "All squads (Development and above race; Dolphins & Sharks fun events)",
+    "note": "Internal racing and progress tracking for the whole club."
+  },
+  {
+    "id": "major-league-r3",
+    "name": "Hertfordshire Major League, Round 3",
+    "month": 4,
+    "order": 1,
+    "typicalTiming": "Late April",
+    "venue": "Away, venue TBC",
+    "level": "League",
+    "squadsInvited": "Team selected by coaches (Development to county-standard swimmers)"
+  },
+  {
+    "id": "time-trials-1",
+    "name": "Time Trials 1",
+    "month": 4,
+    "order": 2,
+    "typicalTiming": "Mid to late April",
+    "venue": "Bushey Grove Leisure Centre",
+    "level": "Internal",
+    "squadsInvited": "All squads",
+    "note": "Licensed time trial for newer racers and swimmers tracking progress."
+  },
+  {
+    "id": "stevenage-development",
+    "name": "Stevenage Development Meet",
+    "month": 4,
+    "order": 3,
+    "typicalTiming": "Mid-April",
+    "venue": "Stevenage Swimming Centre",
+    "level": "Open meet",
+    "squadsInvited": "Development, Improvement and early Challenge swimmers",
+    "note": "Development-focused open meet, a regular spring fixture for younger competitive swimmers."
+  },
+  {
+    "id": "east-region-lc",
+    "name": "Swim England East Region Long Course Championships",
+    "month": 4,
+    "order": 4,
+    "typicalTiming": "Late April to early May",
+    "venue": "Regional venue TBC",
+    "level": "Regional",
+    "squadsInvited": "Regional qualifiers only",
+    "note": "For swimmers who have already achieved regional qualifying times."
+  },
+  {
+    "id": "peanuts-league-r1",
+    "name": "Peanuts League, Round 1",
+    "month": 5,
+    "order": 1,
+    "typicalTiming": "Early to mid-May",
+    "venue": "Away, venue TBC",
+    "level": "League",
+    "squadsInvited": "Team selected by coaches (typically 9–12 age group)",
+    "note": "Younger-swimmer team league with mixed individual and relay events."
+  },
+  {
+    "id": "club-champs-2",
+    "name": "Club Championships, Round 2",
+    "month": 5,
+    "order": 2,
+    "typicalTiming": "Mid-May",
+    "venue": "Bushey Grove Leisure Centre",
+    "level": "Internal",
+    "squadsInvited": "All squads"
+  },
+  {
+    "id": "watford-development",
+    "name": "Watford Development Meet",
+    "month": 5,
+    "order": 3,
+    "typicalTiming": "Mid to late May",
+    "venue": "Watford Central Baths",
+    "level": "Open meet",
+    "squadsInvited": "Development, Improvement and Challenge swimmers",
+    "note": "One of the most recurrent external meets on the club calendar."
+  },
+  {
+    "id": "peanuts-league-r2",
+    "name": "Peanuts League, Round 2",
+    "month": 6,
+    "order": 1,
+    "typicalTiming": "Early June",
+    "venue": "Away, venue TBC",
+    "level": "League",
+    "squadsInvited": "Team selected by coaches (typically 9–12 age group)"
+  },
+  {
+    "id": "watford-terry-davies",
+    "name": "Watford Terry Davies Legacy Meet",
+    "month": 6,
+    "order": 2,
+    "typicalTiming": "Mid-June",
+    "venue": "Watford Central Baths",
+    "level": "Open meet",
+    "squadsInvited": "Challenge, Competitive and Performance",
+    "note": "Stronger age-group meet for swimmers from County A standard upwards."
+  },
+  {
+    "id": "peanuts-league-r3",
+    "name": "Peanuts League, Round 3",
+    "month": 6,
+    "order": 3,
+    "typicalTiming": "Late June",
+    "venue": "Away, venue TBC",
+    "level": "League",
+    "squadsInvited": "Team selected by coaches (typically 9–12 age group)"
+  },
+  {
+    "id": "club-champs-distance",
+    "name": "Club Championships, 800m & 1500m Freestyle",
+    "month": 6,
+    "order": 4,
+    "typicalTiming": "Early to mid-June",
+    "venue": "Bushey Grove Leisure Centre",
+    "level": "Internal",
+    "squadsInvited": "Endurance swimmers and county-distance aspirants"
+  },
+  {
+    "id": "stevenage-summer-sprint",
+    "name": "Stevenage Summer Sprint",
+    "month": 7,
+    "order": 1,
+    "typicalTiming": "Early July",
+    "venue": "Stevenage Swimming Centre",
+    "level": "Open meet",
+    "squadsInvited": "Development, Improvement and Challenge swimmers",
+    "note": "Summer development meet for race reps before the lighter August period."
+  },
+  {
+    "id": "open-water",
+    "name": "East Region / County Open Water Championships",
+    "month": 7,
+    "order": 2,
+    "typicalTiming": "Mid-July, qualification permitting",
+    "venue": "Open water venue TBC",
+    "level": "Regional",
+    "squadsInvited": "Open-water capable swimmers with qualification",
+    "note": "For swimmers with open-water experience and the required qualification."
+  },
+  {
+    "id": "herts-aquatics-autumn",
+    "name": "Hertfordshire Aquatics Autumn Open Meet",
+    "month": 9,
+    "order": 1,
+    "typicalTiming": "Early September",
+    "venue": "Venue TBC",
+    "level": "Open meet",
+    "squadsInvited": "Challenge, Competitive and Performance",
+    "note": "Early-season sharpener for county-qualifying swimmers. Not held every year."
+  },
+  {
+    "id": "arena-league-r1",
+    "name": "Arena League, Round 1",
+    "month": 10,
+    "order": 1,
+    "typicalTiming": "Early to mid-October",
+    "venue": "Away, venue TBC",
+    "level": "League",
+    "squadsInvited": "Team selected by coaches (older development and age-group swimmers)",
+    "note": "Team gala for established club racers."
+  },
+  {
+    "id": "herts-aquatics-open",
+    "name": "Hertfordshire Aquatics Open Meet",
+    "month": 11,
+    "order": 1,
+    "typicalTiming": "First weekend of November",
+    "venue": "Venue TBC",
+    "level": "Open meet",
+    "squadsInvited": "Challenge, Competitive and Performance",
+    "note": "Autumn county-qualifying opportunity for short-course times."
+  },
+  {
+    "id": "watford-county-qualifier",
+    "name": "Watford County Qualifier",
+    "month": 11,
+    "order": 2,
+    "typicalTiming": "Mid-November",
+    "venue": "Watford Central Baths",
+    "level": "Open meet",
+    "squadsInvited": "Challenge, Competitive and Performance (coach approval)",
+    "note": "Key chance to post Hertfordshire county qualifying times."
+  },
+  {
+    "id": "club-champs-3",
+    "name": "Club Championships, Round 3",
+    "month": 11,
+    "order": 3,
+    "typicalTiming": "Late November",
+    "venue": "Bushey Grove Leisure Centre",
+    "level": "Internal",
+    "squadsInvited": "All squads",
+    "note": "Final club champs round of the year, tied into the annual awards cycle."
+  },
+  {
+    "id": "arena-league-r2",
+    "name": "Arena League, Round 2",
+    "month": 11,
+    "order": 4,
+    "typicalTiming": "Early to mid-November",
+    "venue": "Away, venue TBC",
+    "level": "League",
+    "squadsInvited": "Team selected by coaches"
+  },
+  {
+    "id": "harpenden-last-chance",
+    "name": "Harpenden Last Chance County Qualifier",
+    "month": 12,
+    "order": 1,
+    "typicalTiming": "First weekend of December",
+    "venue": "Harpenden Sports Centre",
+    "level": "Open meet",
+    "squadsInvited": "Competitive and Performance (coach approval)",
+    "note": "Final opportunity to qualify for the following January's county championships."
+  },
+  {
+    "id": "arena-league-r3",
+    "name": "Arena League, Round 3",
+    "month": 12,
+    "order": 2,
+    "typicalTiming": "Early to mid-December",
+    "venue": "Away, venue TBC",
+    "level": "League",
+    "squadsInvited": "Team selected by coaches"
+  }
+]

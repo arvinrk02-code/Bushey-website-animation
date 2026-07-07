@@ -1,0 +1,92 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import CtaBand from "../../components/CtaBand.astro";
+
+const roles = [
+  {
+    title: "Timekeeper",
+    commitment: "A stopwatch and a seat at galas",
+    body: "The classic first role. Fifteen minutes of instruction, the best seat in the house, and galas literally cannot run without you.",
+    training: "Briefing on the day",
+  },
+  {
+    title: "Licensed Official",
+    commitment: "A free course + galas of your choice",
+    body: "Judges and starters, trained through Swim England's official pathway. Start as a Judge Level 1, the club funds the course and mentors you through poolside hours.",
+    training: "Swim England J1 course (free via club)",
+  },
+  {
+    title: "Team Manager",
+    commitment: "Away galas, a clipboard and a loud voice",
+    body: "Look after the team at galas: marshalling swimmers to the right races, keeping spirits up, and being the calm point in the noise.",
+    training: "Swim England Team Manager module (free via club)",
+  },
+  {
+    title: "Poolside Helper",
+    commitment: "An hour alongside a session",
+    body: "Support teachers with the younger squads, kit, lane ropes, encouragement and the occasional lost goggle. DBS checked, no experience needed.",
+    training: "In-session, plus DBS check arranged by the club",
+  },
+  {
+    title: "Teacher / Coach pathway",
+    commitment: "The big one, we'll fund your quals",
+    body: "Fancy poolside for real? The club supports committed volunteers (including older swimmers) through Swim England teaching and coaching qualifications.",
+    training: "Swim England Level 1–2, club funded",
+  },
+  {
+    title: "Committee & behind-the-scenes",
+    commitment: "A few hours a month, from home",
+    body: "Membership admin, kit orders, social media, gala catering, this website, the club runs on skills as much as stopwatches. Whatever yours is, we can use it.",
+    training: "Handover from the current role-holder",
+  },
+];
+---
+
+<Base
+  title="Volunteering"
+  description="Volunteering at Bushey ASC, timekeeping, officiating, team managing and more. Every family plays a part, no experience needed."
+>
+  <PageHero
+    eyebrow="The club"
+    title="Every family plays a part"
+    strap="BASC is run entirely by volunteers, coaching to officiating to kit orders. We hope every family helps in some way, and there's a role for every amount of time and confidence. Here's the menu."
+  />
+
+  <section class="bg-white py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8">
+      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {
+          roles.map((r, i) => (
+            <div class="card-lift reveal flex flex-col rounded-3xl border border-foam-200 bg-white p-7" style={`--reveal-delay: ${(i % 3) * 0.07}s`}>
+              <h2 class="display text-xl text-deep-800">{r.title}</h2>
+              <p class="mt-1.5 text-xs font-bold uppercase tracking-wider text-aqua-600">{r.commitment}</p>
+              <p class="mt-3 flex-1 text-sm leading-relaxed text-ink-600">{r.body}</p>
+              <p class="mt-4 border-t border-foam-100 pt-3 text-xs text-ink-400">
+                <span class="font-bold text-deep-600">Training:</span> {r.training}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="reveal mt-12 rounded-3xl bg-gold-400/12 border-2 border-gold-400/40 p-8 sm:p-10">
+        <div class="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
+          <div class="max-w-2xl">
+            <h2 class="display text-2xl text-deep-800">Why it matters</h2>
+            <p class="mt-3 text-sm leading-relaxed text-ink-600">
+              Every hour a volunteer gives keeps fees lower and lanes open. A hundred years of
+              Bushey swimming is really a hundred years of people putting their hand up. Interested?
+              Tell us what you enjoy and how much time you have, we'll find the fit.
+            </p>
+          </div>
+          <a href="mailto:info@busheyasc.org?subject=Volunteering" class="shrink-0 rounded-full bg-deep-800 px-7 py-3.5 text-sm font-bold text-white transition hover:bg-deep-700">
+            I'm interested →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

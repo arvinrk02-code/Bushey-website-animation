@@ -1,0 +1,106 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+import CtaBand from "../../components/CtaBand.astro";
+
+const values = [
+  {
+    title: "Technique first",
+    body: "It's written into our constitution: sound swimming technique before everything else. Fast follows correct. It has for a hundred years.",
+  },
+  {
+    title: "Volunteer run",
+    body: "No owners, no shareholders. Coaches, committee, officials and helpers give their time so that membership stays affordable and the club stays ours.",
+  },
+  {
+    title: "Everyone races",
+    body: "We're a competitive club with a friendly heart. From age 9, everyone represents BASC, because racing builds confidence you keep for life.",
+  },
+  {
+    title: "Small by design",
+    body: "Small enough that coaches know every swimmer's name, stroke and story. That's not a limitation. It's the whole point.",
+  },
+];
+
+const links = [
+  { label: "Centenary 1926–2026", href: "/club/centenary", desc: "One hundred years in the water, and the history project" },
+  { label: "Committee", href: "/club/committee", desc: "The volunteers who keep the club running" },
+  { label: "Volunteering", href: "/club/volunteering", desc: "Roles for every parent, no experience needed" },
+  { label: "Club kit", href: "/club/kit", desc: "Hats, tees and centenary team wear" },
+  { label: "Policies & documents", href: "/club/policies", desc: "Constitution, codes of conduct, privacy" },
+];
+---
+
+<Base
+  title="About the club"
+  description="Bushey Amateur Swimming Club, a small, friendly, volunteer-run competitive swimming club in Hertfordshire, founded in 1926."
+>
+  <PageHero
+    eyebrow="The club"
+    title="Small club. Big standards."
+    strap="Bushey Amateur Swimming Club has been teaching Hertfordshire to swim properly since 1926. We're based at Bushey Grove Leisure Centre, we're run entirely by volunteers, and we care more about a beautiful stroke than anything else."
+  />
+
+  <section class="bg-white py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8">
+      <div class="grid items-center gap-10 lg:grid-cols-[1fr_420px]">
+        <SectionHeader
+          eyebrow="What we stand for"
+          title="The Bushey way"
+          strap="Four things have kept this club alive for a century. They're not slogans, they're how Tuesday night training actually works."
+        />
+        <figure class="reveal overflow-hidden rounded-3xl shadow-xl shadow-deep-900/10" style="--reveal-delay: 0.15s">
+          <img
+            src="/images/news-herts-aquatics-2.jpeg"
+            alt="BASC swimmers and coaches lined up together on poolside"
+            class="h-64 w-full object-cover"
+            width="1024"
+            height="768"
+            loading="lazy"
+          />
+        </figure>
+      </div>
+      <div class="mt-12 grid gap-5 sm:grid-cols-2">
+        {
+          values.map((v, i) => (
+            <div class="card-lift reveal rounded-3xl border border-foam-200 bg-foam-50 p-8" style={`--reveal-delay: ${(i % 2) * 0.08}s`}>
+              <span class="display text-4xl text-aqua-400" aria-hidden="true">0{i + 1}</span>
+              <h3 class="display mt-3 text-2xl text-deep-800">{v.title}</h3>
+              <p class="mt-3 leading-relaxed text-ink-600">{v.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Member privacy note -->
+      <div class="reveal mt-12 rounded-3xl border border-foam-200 bg-white p-8">
+        <h2 class="display text-xl text-deep-800">Member privacy</h2>
+        <p class="mt-3 max-w-3xl text-sm leading-relaxed text-ink-600">
+          In line with Swim England advice, information about members on this website is restricted
+          to name, age group and swimming results. Parts of the website are password protected via
+          SwimManager, with access restricted to members only.{" "}
+          <a href="/club/policies#privacy" class="font-bold text-deep-600 underline decoration-aqua-400 underline-offset-4 hover:text-aqua-600">View the privacy notice in full</a>.
+        </p>
+      </div>
+
+      <!-- Explore -->
+      <div class="mt-16">
+        <SectionHeader eyebrow="Explore" title="More about the club" />
+        <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            links.map((link, i) => (
+              <a href={link.href} class="card-lift reveal group rounded-2xl border border-foam-200 bg-white p-6" style={`--reveal-delay: ${(i % 3) * 0.06}s`}>
+                <h3 class="font-bold text-deep-800 transition group-hover:text-aqua-600">{link.label}</h3>
+                <p class="mt-1.5 text-sm text-ink-600">{link.desc}</p>
+                <span class="mt-3 inline-block text-sm font-bold text-aqua-600" aria-hidden="true">→</span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

@@ -1,0 +1,105 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import CtaBand from "../../components/CtaBand.astro";
+
+const sections = [
+  {
+    title: "President",
+    roles: [{ role: "Club President", name: "Jane Willis" }],
+  },
+  {
+    title: "Executive Committee",
+    roles: [
+      { role: "Chair", name: "Clare Ward-Smith" },
+      { role: "Club Secretary", name: "Adelina Butnaru" },
+      { role: "Treasurer", name: "Vijay Shah" },
+    ],
+  },
+  {
+    title: "Committee",
+    roles: [
+      { role: "Kit Secretary", name: "Stephen Ward" },
+      { role: "Bookings Secretary", name: "Lydia Aldeiri" },
+      { role: "Health & Safety Officer", name: "Aron Dindol" },
+      { role: "Membership Secretary 1", name: "Chantal Pezot" },
+      { role: "Membership Secretary 2", name: "Sarah-Jane Corfield-Smith" },
+      { role: "Open Meet Coordinator", name: "Anupaa Vekaria" },
+      { role: "Poolside Manager", name: "Vacant" },
+      { role: "Website/Tech Coordinator", name: "Mirusha Adampulle" },
+      { role: "Trophy Secretary", name: "Stephen Ward" },
+      { role: "Swim England Affiliation Coordinator", name: "Anupaa Vekaria" },
+      { role: "Club Championships Secretary", name: "Sue Docker" },
+    ],
+  },
+  {
+    title: "Non-committee roles",
+    roles: [
+      { role: "Disability Liaison Officer", name: "Vacant" },
+      { role: "Public Relations Officer", name: "Vacant" },
+      { role: "Social Secretary", name: "Vacant" },
+      { role: "Welfare Officer 1", name: "Nancy Conoboy" },
+      { role: "Welfare Officer 2", name: "Vacant" },
+    ],
+  },
+];
+---
+
+<Base
+  title="Committee"
+  description="The volunteer committee that runs Bushey ASC and who holds each role."
+>
+  <PageHero
+    eyebrow="The club"
+    title="The committee"
+    strap="The volunteer team that keeps Bushey ASC running. Contact any committee member via the club email."
+    compact
+  />
+
+  <section class="bg-white py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8">
+      <div class="space-y-14">
+        {
+          sections.map((section, si) => (
+            <div class="reveal" style={`--reveal-delay: ${si * 0.08}s`}>
+              <h2 class="display text-2xl text-deep-800">{section.title}</h2>
+              <div class="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                {
+                  section.roles.map((r, i) => (
+                    <div
+                      class="card-lift flex flex-col rounded-3xl border border-foam-200 bg-foam-50 p-6"
+                      style={`--reveal-delay: ${(i % 4) * 0.06}s`}
+                    >
+                      <p class="eyebrow text-aqua-600">{r.role}</p>
+                      <p class:list={["display mt-2 text-lg", r.name === "Vacant" ? "text-ink-500" : "text-deep-800"]}>
+                        {r.name}
+                      </p>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="reveal mt-12 rounded-3xl bg-deep-900 p-8 text-center text-white sm:p-10">
+        <h2 class="display text-2xl">Get in touch</h2>
+        <p class="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/70">
+          All committee members can be reached through the club inbox. Mark your message for the
+          attention of the role you need.
+        </p>
+        <a href="mailto:info@busheyasc.org" class="mt-6 inline-block rounded-full bg-aqua-400 px-8 py-3.5 text-sm font-bold text-deep-900 transition hover:bg-aqua-300">
+          info@busheyasc.org
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title="The committee needs you"
+    strap="Committees only work when the load is shared. If you can run a spreadsheet, write an email or make a phone call, there's a role you'd be great at."
+    buttonLabel="See volunteering roles"
+    buttonHref="/club/volunteering"
+  />
+</Base>

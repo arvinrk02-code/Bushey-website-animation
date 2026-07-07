@@ -1,0 +1,347 @@
+@import "tailwindcss";
+
+@theme {
+  /* ---- Brand palette ---- */
+  --color-deep-950: #030d18;
+  --color-deep-900: #051423;
+  --color-deep-800: #0a2540;
+  --color-deep-700: #103a5e;
+  --color-deep-600: #175081;
+
+  --color-aqua-300: #7df3ff;
+  --color-aqua-400: #38e1f5;
+  --color-aqua-500: #10c5dd;
+  --color-aqua-600: #0a9db4;
+
+  --color-gold-300: #f2d488;
+  --color-gold-400: #e3b341;
+  --color-gold-500: #c9992e;
+
+  --color-foam-50: #f4fafc;
+  --color-foam-100: #e8f3f7;
+  --color-foam-200: #d4e7ee;
+
+  --color-ink-900: #0b1c2b;
+  --color-ink-600: #3d566b;
+  --color-ink-400: #6b8399;
+
+  /* ---- Type ---- */
+  --font-display: "Archivo Variable", "Archivo", "Arial Black", sans-serif;
+  --font-body: "Inter Variable", "Inter", system-ui, sans-serif;
+
+  --tracking-mega: -0.03em;
+
+  /* ---- Motion ---- */
+  --ease-swim: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* =========================================================
+   Base
+   ========================================================= */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-ink-900);
+  background: #ffffff;
+  font-feature-settings: "ss01", "cv11";
+}
+
+::selection {
+  background: var(--color-aqua-400);
+  color: var(--color-deep-900);
+}
+
+/* =========================================================
+   Display typography
+   ========================================================= */
+.display {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 118;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-mega);
+  line-height: 0.92;
+  text-wrap: balance;
+}
+
+.display-condensed {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 78;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 0.95;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+}
+
+/* Outlined "ghost" type for big background words */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, currentColor 100%, transparent);
+}
+
+/* =========================================================
+   Scroll reveal (driven by src/scripts/reveal.js)
+   ========================================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s var(--ease-swim),
+    transform 0.8s var(--ease-swim);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* =========================================================
+   Water effects
+   ========================================================= */
+@keyframes shimmer-drift {
+  0% {
+    transform: translate3d(-2%, 0, 0) scale(1.02);
+  }
+  50% {
+    transform: translate3d(2%, -1.5%, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(-2%, 0, 0) scale(1.02);
+  }
+}
+
+@keyframes wave-slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.wave-band {
+  animation: wave-slide 26s linear infinite;
+  will-change: transform;
+}
+
+.wave-band--slow {
+  animation-duration: 42s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave-band {
+    animation: none;
+  }
+}
+
+/* Aqua gradient shimmer sweeping through headline text */
+@keyframes text-shimmer {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    100deg,
+    #ffffff 38%,
+    var(--color-aqua-300) 50%,
+    #ffffff 62%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-shimmer 7s linear infinite;
+}
+
+/* Light-hero variant: deep navy type with an aqua light sweeping through */
+.shimmer-text-ink {
+  background: linear-gradient(
+    100deg,
+    var(--color-deep-800) 38%,
+    var(--color-aqua-500) 50%,
+    var(--color-deep-800) 62%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-shimmer 7s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer-text {
+    animation: none;
+    background: none;
+    color: #fff;
+  }
+  .shimmer-text-ink {
+    animation: none;
+    background: none;
+    color: var(--color-deep-800);
+  }
+}
+
+/* =========================================================
+   Misc components
+   ========================================================= */
+.card-lift {
+  transition:
+    transform 0.45s var(--ease-swim),
+    box-shadow 0.45s var(--ease-swim);
+}
+
+.card-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px -16px rgb(5 20 35 / 0.25);
+}
+
+/* Thin gold rule used in centenary treatments */
+.gold-rule {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-gold-400),
+    transparent
+  );
+}
+
+/* Prose defaults for long-form article pages */
+.prose-club {
+  max-width: 42rem;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--color-ink-900);
+}
+
+.prose-club h2 {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 110;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  font-size: 1.5rem;
+  line-height: 1.1;
+  margin-top: 2.5rem;
+  margin-bottom: 0.875rem;
+  color: var(--color-deep-800);
+}
+
+.prose-club h3 {
+  font-weight: 700;
+  font-size: 1.125rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-deep-800);
+}
+
+.prose-club p {
+  margin-bottom: 1rem;
+}
+
+.prose-club ul {
+  list-style: none;
+  margin-bottom: 1rem;
+  padding-left: 0;
+}
+
+.prose-club ul li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose-club ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 0.55rem;
+  height: 0.15rem;
+  border-radius: 999px;
+  background: var(--color-aqua-500);
+}
+
+.prose-club ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.prose-club ol li {
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+}
+
+.prose-club a {
+  color: var(--color-deep-600);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--color-aqua-400);
+  text-underline-offset: 3px;
+}
+
+.prose-club a:hover {
+  color: var(--color-aqua-600);
+}
+
+.prose-club strong {
+  color: var(--color-deep-800);
+}
+
+.prose-club blockquote {
+  border-left: 3px solid var(--color-aqua-400);
+  padding-left: 1.25rem;
+  font-style: italic;
+  color: var(--color-ink-600);
+  margin: 1.5rem 0;
+}
+
+.prose-club table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  margin: 1.5rem 0;
+}
+
+.prose-club th {
+  text-align: left;
+  font-weight: 700;
+  padding: 0.625rem 0.875rem;
+  background: var(--color-deep-800);
+  color: #fff;
+}
+
+.prose-club td {
+  padding: 0.625rem 0.875rem;
+  border-bottom: 1px solid var(--color-foam-200);
+}

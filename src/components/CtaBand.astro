@@ -1,0 +1,43 @@
+---
+interface Props {
+  title?: string;
+  strap?: string;
+  buttonLabel?: string;
+  buttonHref?: string;
+}
+const {
+  title = "Ready to get in the water?",
+  strap = "New members of all abilities are welcome. Tell us about your swimmer and we'll invite you to the next assessment session.",
+  buttonLabel = "Join Bushey ASC",
+  buttonHref = "/join",
+} = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-deep-900">
+  <div
+    class="absolute inset-0"
+    style="background:
+      radial-gradient(90% 120% at 85% 20%, color-mix(in srgb, var(--color-aqua-500) 22%, transparent) 0%, transparent 60%),
+      radial-gradient(70% 100% at 10% 90%, var(--color-deep-700) 0%, transparent 55%);"
+    aria-hidden="true"
+  >
+  </div>
+  <div class="pointer-events-none absolute -right-6 -top-10 select-none" aria-hidden="true">
+    <span class="display text-outline text-[11rem] leading-none text-aqua-400/12">1926</span>
+  </div>
+
+  <div class="relative mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-5 py-16 sm:px-8 sm:py-20 lg:flex-row lg:items-center">
+    <div class="max-w-2xl">
+      <h2 class="display reveal text-[clamp(1.75rem,4vw,2.75rem)] text-white">{title}</h2>
+      <p class="reveal mt-4 text-base leading-relaxed text-white/65 sm:text-lg" style="--reveal-delay: 0.1s">{strap}</p>
+    </div>
+    <a
+      href={buttonHref}
+      class="reveal group inline-flex shrink-0 items-center gap-3 rounded-full bg-aqua-400 px-8 py-4 text-base font-bold text-deep-900 transition hover:bg-aqua-300 hover:shadow-xl hover:shadow-aqua-400/25"
+      style="--reveal-delay: 0.18s"
+    >
+      {buttonLabel}
+      <span class="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">→</span>
+    </a>
+  </div>
+</section>

@@ -1,0 +1,52 @@
+[
+  {
+    "id": "bushey-grove",
+    "name": "Bushey Grove Leisure Centre",
+    "address": "Aldenham Road, Bushey, WD23 2TD",
+    "mapQuery": "Bushey Grove Leisure Centre, Aldenham Road, Bushey WD23 2TD",
+    "length": "25m, 6 lanes",
+    "parking": "Free on-site car park",
+    "note": "Our home pool and club base. Most squad sessions, Club Championships and time trials happen here.",
+    "photo": "/images/pool-bushey-grove.jpg"
+  },
+  {
+    "id": "st-margarets",
+    "name": "St Margaret's School",
+    "address": "Merry Hill Road, Bushey, WD23 1DT",
+    "mapQuery": "St Margaret's School, Merry Hill Road, Bushey WD23 1DT",
+    "length": "25m",
+    "parking": "On-site parking available on Sundays",
+    "note": "Sunday afternoon home for our foundation and development squads.",
+    "photo": "/images/pool-st-margarets.jpg"
+  },
+  {
+    "id": "st-helens",
+    "name": "St Helen's School",
+    "address": "Eastbury Road, Northwood, HA6 3AS",
+    "mapQuery": "St Helen's School, Eastbury Road, Northwood HA6 3AS",
+    "length": "25m",
+    "parking": "On-site parking",
+    "note": "Midweek evening training for Challenge and Competitive squads.",
+    "photo": "/images/pool-st-helens.jpg"
+  },
+  {
+    "id": "merchant-taylors",
+    "name": "Merchant Taylors' School",
+    "address": "Sandy Lodge, Northwood, HA6 2HT",
+    "mapQuery": "Merchant Taylors' School, Sandy Lodge, Northwood HA6 2HT",
+    "length": "25m, 8 lanes",
+    "parking": "On-site parking",
+    "note": "Quality evening training water for our top squads.",
+    "photo": "/images/pool-merchant-taylors.jpeg"
+  },
+  {
+    "id": "luton",
+    "name": "Inspire: Luton Sports Village",
+    "address": "Butterfield Green Road, Luton, LU2 8DD",
+    "mapQuery": "Inspire Luton Sports Village, Butterfield Green Road, Luton LU2 8DD",
+    "length": "50m Olympic-standard pool",
+    "parking": "Large free car park",
+    "note": "Invitation-only Saturday long-course training, the same pool length swum at counties, regionals and nationals.",
+    "photo": "/images/pool-luton.jpg"
+  }
+]

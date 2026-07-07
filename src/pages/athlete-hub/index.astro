@@ -1,0 +1,76 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import CtaBand from "../../components/CtaBand.astro";
+
+const hub = (await getCollection("hub")).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base
+  title="Athlete Hub"
+  description="The Bushey ASC Athlete Hub, nutrition, sleep, land training, injury prevention and equipment guidance written for age-group swimmers and their parents."
+>
+  <PageHero
+    eyebrow="Athlete Hub"
+    title="The bits that happen out of the pool"
+    strap="Food, sleep, land training, kit. Most of what shows up in your times happens away from the pool. Practical guides from Swim England, written for our squads and the parents supporting them."
+  />
+
+  <section class="bg-white py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8">
+      <div class="grid gap-6 md:grid-cols-2">
+        {
+          hub.map((article, i) => (
+            <a
+              href={`/athlete-hub/${article.id}`}
+              class="card-lift reveal group relative overflow-hidden rounded-3xl border border-foam-200 bg-white p-8 sm:p-10"
+              style={`--reveal-delay: ${(i % 2) * 0.08}s`}
+            >
+              <span class="display text-outline pointer-events-none absolute -right-3 -top-8 select-none text-[8rem] leading-none text-deep-800/8" aria-hidden="true">
+                0{article.data.order}
+              </span>
+              <h2 class="display text-3xl text-deep-800 transition group-hover:text-aqua-600">{article.data.title}</h2>
+              <p class="mt-3 max-w-md leading-relaxed text-ink-600">{article.data.strap}</p>
+              <ul class="mt-6 space-y-2.5">
+                {article.data.keyTakeaways.slice(0, 2).map((t) => (
+                  <li class="flex gap-3 text-sm leading-snug text-ink-600">
+                    <span class="mt-0.5 font-bold text-aqua-500" aria-hidden="true">✓</span>
+                    {t}
+                  </li>
+                ))}
+              </ul>
+              <span class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-deep-600 transition group-hover:gap-3 group-hover:text-aqua-600">
+                Read the guide <span aria-hidden="true">→</span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+
+      <div class="reveal mt-12 rounded-3xl bg-deep-900 p-8 text-white sm:p-10">
+        <div class="grid gap-8 lg:grid-cols-2">
+          <div>
+            <p class="eyebrow text-aqua-400">Why we built this</p>
+            <h2 class="display mt-2 text-2xl">Straightforward advice</h2>
+            <p class="mt-4 text-sm leading-relaxed text-white/70">
+              Every guide here follows Swim England guidance and links to their resources.
+              Written for our swimmers, whether you're a Dolphins parent packing a first gala bag
+              or a Performance swimmer chasing a regional cut.
+            </p>
+          </div>
+          <div>
+            <p class="eyebrow text-gold-400">How to use it</p>
+            <ul class="mt-4 space-y-3 text-sm leading-relaxed text-white/70">
+              <li class="flex gap-3"><span class="text-gold-400" aria-hidden="true">1.</span> Parents of younger swimmers: start with Nutrition and Equipment.</li>
+              <li class="flex gap-3"><span class="text-gold-400" aria-hidden="true">2.</span> Competing swimmers: start with Sleep & Recovery.</li>
+              <li class="flex gap-3"><span class="text-gold-400" aria-hidden="true">3.</span> Top squads: all five, then ask your coach how to apply them to your season.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

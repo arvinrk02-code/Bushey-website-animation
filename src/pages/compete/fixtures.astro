@@ -1,0 +1,105 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { groupGalasByMonth, MONTH_NAMES } from "../../data/galas";
+
+const galas = (await getCollection("fixtures")).map((f) => f.data);
+const grouped = groupGalasByMonth(galas);
+
+const levelColours: Record<string, string> = {
+  Internal: "bg-aqua-400/15 text-aqua-600",
+  League: "bg-deep-600/12 text-deep-600",
+  "Open meet": "bg-gold-400/20 text-gold-500",
+  County: "bg-deep-800 text-white",
+  Regional: "bg-deep-950 text-aqua-300",
+};
+---
+
+<Base
+  title="Upcoming galas"
+  description="Bushey ASC's typical annual gala calendar: club champs, league galas, county qualifiers, open meets and championships."
+>
+  <PageHero
+    eyebrow="Compete"
+    title="Upcoming galas"
+    strap="The galas and meets Bushey races at every season. Exact dates are confirmed closer to the time and published through SwimManager."
+    compact
+  />
+
+  <section class="bg-white py-16 sm:py-24">
+    <div class="mx-auto max-w-5xl px-5 sm:px-8">
+      <div class="reveal -mt-4 mb-12 overflow-hidden rounded-3xl shadow-lg shadow-deep-900/10">
+        <img
+          src="/images/news-woodside-lanes.png"
+          alt="A competition pool set up and ready for racing"
+          class="h-44 w-full object-cover sm:h-56"
+          width="1024"
+          height="587"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="reveal mb-12 rounded-3xl border border-foam-200 bg-foam-50 p-6 sm:p-8">
+        <p class="text-sm leading-relaxed text-ink-600">
+          This is Bushey's <strong class="text-deep-800">typical annual racing calendar</strong>, built from
+          the club's recurring competition pattern. Months and rough timings stay fairly consistent year to
+          year, but exact dates, venues and entry deadlines are always confirmed on{" "}
+          <a href="https://www.swimmanager.co.uk/" target="_blank" rel="noopener" class="font-bold text-deep-600 underline decoration-aqua-400 underline-offset-4 hover:text-aqua-600">SwimManager ↗</a>{" "}
+          once the season is set.
+        </p>
+      </div>
+
+      <div class="space-y-14">
+        {
+          grouped.map(([month, monthGalas], gi) => (
+            <div class="reveal" style={`--reveal-delay: ${Math.min(gi * 0.05, 0.25)}s`}>
+              <h2 class="display text-2xl text-deep-800">{MONTH_NAMES[month - 1]}</h2>
+              <ol class="relative mt-6 space-y-5">
+                <div class="absolute bottom-4 left-[1.4rem] top-4 w-0.5 bg-gradient-to-b from-aqua-400 via-foam-200 to-gold-400/60 max-sm:hidden" aria-hidden="true"></div>
+                {
+                  monthGalas.map((gala, i) => (
+                    <li class="relative sm:pl-16">
+                      <span class="absolute left-0 top-6 hidden h-11 w-11 items-center justify-center rounded-full border-2 border-aqua-400/50 bg-white font-display text-[0.65rem] font-extrabold uppercase leading-tight text-deep-800 sm:flex" aria-hidden="true">
+                        {MONTH_NAMES[month - 1].slice(0, 3)}
+                      </span>
+                      <article class="card-lift rounded-3xl border border-foam-200 bg-white p-7 sm:p-8">
+                        <div class="flex flex-wrap items-center gap-3">
+                          <span class:list={["rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider", levelColours[gala.level]]}>{gala.level}</span>
+                          <span class="text-sm font-bold text-deep-600">{gala.typicalTiming}</span>
+                        </div>
+                        <h3 class="display mt-3 text-2xl text-deep-800">{gala.name}</h3>
+                        <dl class="mt-4 grid gap-x-10 gap-y-3 text-sm sm:grid-cols-2">
+                          <div>
+                            <dt class="text-xs font-semibold uppercase tracking-wider text-ink-400">Venue</dt>
+                            <dd class="mt-0.5 font-semibold text-deep-800">{gala.venue}</dd>
+                          </div>
+                          <div>
+                            <dt class="text-xs font-semibold uppercase tracking-wider text-ink-400">Who's invited</dt>
+                            <dd class="mt-0.5 font-semibold text-deep-800">{gala.squadsInvited}</dd>
+                          </div>
+                        </dl>
+                        {gala.note && <p class="mt-4 border-t border-foam-100 pt-4 text-sm leading-relaxed text-ink-600">{gala.note}</p>}
+                      </article>
+                    </li>
+                  ))
+                }
+              </ol>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="reveal mt-12 rounded-3xl bg-deep-900 p-8 text-center text-white">
+        <p class="text-sm leading-relaxed text-white/70">
+          Exact dates, entries and team sheets live in{" "}
+          <a href="https://www.swimmanager.co.uk/" target="_blank" rel="noopener" class="font-bold text-aqua-300 underline underline-offset-4">SwimManager ↗</a>. New to competing? Start with the{" "}
+          <a href="/compete/guide" class="font-bold text-aqua-300 underline underline-offset-4">competing guide</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

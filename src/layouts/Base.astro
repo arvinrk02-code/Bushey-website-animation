@@ -1,0 +1,51 @@
+---
+import "../styles/global.css";
+import "@fontsource-variable/archivo";
+import "@fontsource-variable/inter";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../data/site";
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Dark pages (e.g. homepage) keep the transparent header look at top of page */
+  theme?: "light" | "dark";
+}
+
+const {
+  title,
+  description = "Bushey Amateur Swimming Club, a friendly, volunteer-run competitive swimming club in Hertfordshire, celebrating its centenary in 2026.",
+} = Astro.props;
+
+const fullTitle = title === site.shortName ? title : `${title} · ${site.shortName}`;
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#051423" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body class="min-h-dvh antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-aqua-400 focus:px-5 focus:py-2.5 focus:text-sm focus:font-bold focus:text-deep-900"
+    >
+      Skip to content
+    </a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script src="../scripts/reveal.js"></script>
+  </body>
+</html>

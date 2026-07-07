@@ -1,0 +1,153 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import CtaBand from "../../components/CtaBand.astro";
+
+const steps = [
+  {
+    title: "Getting selected or entering",
+    body: "League galas are by team selection, coaches pick the team and you'll be asked to confirm availability, so reply fast. Open meets and Club Champs are entered individually through SwimManager before the published deadline. Not sure which events to enter? Ask your coach. That's exactly what they're for.",
+  },
+  {
+    title: "The week before",
+    body: "Nothing special. That's the point. Train normally, sleep normally, eat normally. Pack the bag the night before (see the checklist), check the warm-up time and venue, and plan to arrive 15 minutes before warm-up starts.",
+  },
+  {
+    title: "Arrival and warm-up",
+    body: "Find the BASC group on poolside or in the team area. We sit together, always. Get changed, report to your coach, and warm up as a team when called. The warm-up matters: it's your only chance to feel the pool, practise a start off unfamiliar blocks and check the turn depth.",
+  },
+  {
+    title: "Marshalling and racing",
+    body: "Listen for your event and heat to be called to marshalling (whipping). Marshals will seat you in heat and lane order, stay in your seat and move when told. Behind the blocks: long whistle means get on the block, 'take your marks', then the start. Race your own race, touch the wall properly at every finish, and check the scoreboard for your time.",
+  },
+  {
+    title: "After each swim",
+    body: "Swim-down if there's a pool available, then go straight to your coach for feedback while the race is fresh. Then it's dry clothes on, snack, drink, and back with the team to cheer. Repeat until your events are done.",
+  },
+  {
+    title: "Results and what they mean",
+    body: "Times appear on the scoreboard and in Meet Mobile/SwimManager. A PB is a win, whatever the placing. A DQ (disqualification) happens to every swimmer eventually, the official's decision is final, your coach will explain what was called, and it becomes a training point. Nobody remembers your DQs; people only remember your good races.",
+  },
+];
+
+const packing = {
+  "In the pool bag": [
+    "Two swim hats (club hat for racing)",
+    "Two pairs of goggles, a broken strap mid-gala is a certainty eventually",
+    "Racing suit plus a spare suit",
+    "Two towels, one for poolside, one for the end",
+    "Poolside shoes (flip-flops or sliders)",
+    "T-shirt and shorts to wear between races, staying warm is free speed",
+  ],
+  "In the food bag": [
+    "Two full drinks bottles, water and squash",
+    "Little-and-often snacks: bananas, malt loaf, cereal bars, small sandwiches",
+    "A back-up snack for delays (there are always delays)",
+    "See the Athlete Hub nutrition guide for race-day fuelling",
+  ],
+  "For the grown-ups": [
+    "Cash or card for spectator entry and programmes",
+    "Layers you can remove: spectator galleries are tropical",
+    "Patience: a 4-hour session might contain 90 seconds of your child racing. Bring a book",
+  ],
+};
+---
+
+<Base
+  title="Competing guide"
+  description="Your first swimming gala explained, selection, warm-ups, marshalling, DQs and exactly what to pack. The Bushey ASC guide for swimmers and parents."
+>
+  <PageHero
+    eyebrow="Compete"
+    title="Your first gala, explained"
+    strap="Galas look chaotic from the outside, hundreds of swimmers, whistles, marshalling calls. Underneath, every meet runs on the same simple rhythm. Here it is, start to finish."
+  />
+
+  <section class="bg-white py-16 sm:py-24">
+    <div class="mx-auto max-w-5xl px-5 sm:px-8">
+      <figure class="reveal relative -mt-4 mb-14 overflow-hidden rounded-3xl shadow-xl shadow-deep-900/10">
+        <img
+          src="/images/news-club-champs-group.jpg"
+          alt="The whole club gathered together on poolside"
+          class="h-56 w-full object-cover sm:h-72"
+          width="1024"
+          height="587"
+          loading="lazy"
+        />
+        <figcaption class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-deep-950/80 to-transparent px-6 pb-4 pt-10 text-sm font-semibold text-white">
+          This is what it's all about!!
+        </figcaption>
+      </figure>
+
+      <!-- The day, step by step -->
+      <ol class="space-y-6">
+        {
+          steps.map((step, i) => (
+            <li class="reveal flex gap-6 rounded-3xl border border-foam-200 bg-white p-7 sm:p-8" style={`--reveal-delay: ${Math.min(i * 0.05, 0.2)}s`}>
+              <span class="display hidden shrink-0 text-5xl text-aqua-400/60 sm:block" aria-hidden="true">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div>
+                <h2 class="display text-xl text-deep-800">
+                  <span class="mr-2 text-aqua-500 sm:hidden">{i + 1}.</span>
+                  {step.title}
+                </h2>
+                <p class="mt-3 leading-relaxed text-ink-600">{step.body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+
+      <!-- Packing checklist -->
+      <div class="reveal mt-16">
+        <h2 class="display text-3xl text-deep-800">The packing list</h2>
+        <p class="mt-3 max-w-2xl text-ink-600">
+          Pack it the night before. Everything breaks, spills or goes missing at galas, the
+          doubles below aren't paranoia, they're experience.
+        </p>
+        <div class="mt-8 grid gap-6 lg:grid-cols-3">
+          {
+            Object.entries(packing).map(([group, items]) => (
+              <div class="rounded-3xl bg-deep-900 p-7 text-white">
+                <h3 class="eyebrow text-aqua-400">{group}</h3>
+                <ul class="mt-4 space-y-3">
+                  {items.map((item) => (
+                    <li class="flex gap-3 text-sm leading-snug text-white/80">
+                      <span class="mt-0.5 text-aqua-400" aria-hidden="true">✓</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Parent notes -->
+      <div class="reveal mt-16 rounded-3xl border-2 border-gold-400/40 bg-white p-8 sm:p-10">
+        <p class="eyebrow text-gold-500">A note for parents</p>
+        <h2 class="display mt-2 text-2xl text-deep-800">On the day</h2>
+        <div class="prose-club mt-4 max-w-none">
+          <p>
+            The practical stuff helps more than you'd think: getting them there on time, fed, and
+            with everything in their bag. Poolside feedback is the coaches' job.
+          </p>
+          <p>
+            Galas only run because parents volunteer as timekeepers, officials and team managers.
+            No experience needed, training is free, and you get the best seat in the house. See{" "}
+            <a href="/club/volunteering">volunteering with BASC</a>, or ask a committee member on the day.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Want the edge on race day?"
+    strap="Race-day fuelling, what to pack, sleep the night before, the Athlete Hub covers the details that add up."
+    buttonLabel="Visit the Athlete Hub"
+    buttonHref="/athlete-hub"
+  />
+</Base>

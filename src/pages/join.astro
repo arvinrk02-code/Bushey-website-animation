@@ -1,0 +1,200 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+
+const steps = [
+  { title: "Tell us about your swimmer", body: "Fill in the enquiry form, age, swimming experience, and anything we should know (medical conditions, SEN) so we can make the trial safe and comfortable." },
+  { title: "Come to a trial", body: "A short, friendly assessment in the water so our teachers can see strokes, efficiency and skills. Trials run periodically, the next round is in early December." },
+  { title: "Get your squad place", body: "We'll recommend the right squad and confirm a place as soon as space allows. You'll get everything you need: timetable, kit list and your SwimManager login." },
+  { title: "Dive in", body: "First session, first friends, and when they're ready, a first race. Welcome to the second century of Bushey swimming." },
+];
+
+const faqs = [
+  {
+    q: "What level does my child need to be?",
+    a: "Aged 5+, able to swim 25m unaided, and working at roughly Stage 5 of the Swim England Learn to Swim pathway, a basic grasp of all four strokes. If you're not sure, enquire anyway; the trial will tell us everything we need.",
+  },
+  {
+    q: "Do they have to compete?",
+    a: "From age 9 we expect all members to take part in internal club competitions and represent BASC at inter-club galas when selected. It's friendly, low-pressure and a huge part of what makes club swimming special. Under-9s just swim and enjoy.",
+  },
+  {
+    q: "How much does it cost?",
+    a: "Fees vary by squad (more sessions, higher fee) and are kept deliberately affordable by our volunteer model. Current fees are confirmed with your place offer, email us for the current schedule.",
+  },
+  {
+    q: "What about adults?",
+    a: "Our Masters section welcomes adult swimmers by arrangement, returning racers, fitness swimmers and triathletes alike. Mention it in the form and we'll be in touch.",
+  },
+  {
+    q: "Is there a waiting list?",
+    a: "Sometimes, for some squads, places depend on space in the right training group. We do our best to offer places quickly, and a trial gets your swimmer in the queue at the right level.",
+  },
+  {
+    q: "Do parents really have to volunteer?",
+    a: "It's not contractual, but we do hope every family helps somehow, and there's a role for every schedule. It's also more fun than sitting in the café for 90 minutes.",
+  },
+];
+---
+
+<Base
+  title="Join us"
+  description="Join Bushey ASC, swimmers aged 5+ of all abilities welcome. How trials work, what it costs, and the enquiry form to get started."
+>
+  <PageHero
+    eyebrow="Join us"
+    title="Ready to take the next step?"
+    strap="If your child loves swimming and is ready to take it further, BASC is the perfect next stroke: excellent technique, real fitness, growing confidence, and the chance to compete in a supportive, low-pressure environment."
+  />
+
+  <section class="bg-white py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8">
+      <!-- The team you're joining -->
+      <div class="reveal -mt-4 mb-16 grid gap-5 lg:grid-cols-[2fr_1fr]">
+        <figure class="relative overflow-hidden rounded-3xl shadow-xl shadow-deep-900/10">
+          <img
+            src="/images/members-group.jpg"
+            alt="Bushey ASC swimmers together on poolside at a gala"
+            class="h-48 w-full object-cover sm:h-full sm:min-h-64"
+            width="1024"
+            height="226"
+            loading="lazy"
+          />
+          <figcaption class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-deep-950/80 to-transparent px-6 pb-4 pt-10 text-sm font-semibold text-white">
+            The team you'd be joining, BASC swimmers on poolside.
+          </figcaption>
+        </figure>
+        <figure class="relative hidden overflow-hidden rounded-3xl shadow-xl shadow-deep-900/10 lg:block">
+          <img
+            src="/images/trials-poster.jpeg"
+            alt="The Bushey ASC banner beside the pool on a trials day"
+            class="h-full w-full object-cover"
+            width="334"
+            height="600"
+            loading="lazy"
+          />
+          <figcaption class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-deep-950/80 to-transparent px-6 pb-4 pt-10 text-sm font-semibold text-white">
+            Trials day at the pool.
+          </figcaption>
+        </figure>
+      </div>
+
+      <!-- How it works -->
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          steps.map((s, i) => (
+            <div class="reveal relative rounded-3xl border border-foam-200 bg-foam-50 p-7" style={`--reveal-delay: ${i * 0.07}s`}>
+              <span class="display text-5xl text-aqua-400" aria-hidden="true">{i + 1}</span>
+              <h2 class="display mt-3 text-xl text-deep-800">{s.title}</h2>
+              <p class="mt-2 text-sm leading-relaxed text-ink-600">{s.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="mt-16 grid gap-14 lg:grid-cols-[1.2fr_1fr]">
+        <!-- Enquiry form -->
+        <div class="reveal">
+          <h2 class="display text-3xl text-deep-800">Enquiry form</h2>
+          <p class="mt-3 max-w-xl text-ink-600">
+            Tell us about your swimmer and our membership team will be in touch with details of the
+            next trial. Trials for the current intake run in <strong class="text-deep-800">early December</strong>.
+          </p>
+
+          <form
+            name="join-enquiry"
+            method="POST"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            action="/join?submitted=true"
+            class="mt-8 grid gap-5 rounded-3xl border border-foam-200 bg-white p-7 sm:grid-cols-2 sm:p-8"
+          >
+            <input type="hidden" name="form-name" value="join-enquiry" />
+            <p class="hidden">
+              <label>Don't fill this out: <input name="bot-field" /></label>
+            </p>
+
+            <div class="sm:col-span-1">
+              <label for="parent-name" class="text-sm font-bold text-deep-800">Parent / carer name *</label>
+              <input required type="text" id="parent-name" name="parent-name" autocomplete="name"
+                class="mt-2 w-full rounded-xl border border-foam-200 bg-foam-50 px-4 py-3 text-sm text-deep-800 outline-none transition focus:border-aqua-500 focus:bg-white" />
+            </div>
+            <div class="sm:col-span-1">
+              <label for="email" class="text-sm font-bold text-deep-800">Email *</label>
+              <input required type="email" id="email" name="email" autocomplete="email"
+                class="mt-2 w-full rounded-xl border border-foam-200 bg-foam-50 px-4 py-3 text-sm text-deep-800 outline-none transition focus:border-aqua-500 focus:bg-white" />
+            </div>
+            <div class="sm:col-span-1">
+              <label for="swimmer-name" class="text-sm font-bold text-deep-800">Swimmer's name *</label>
+              <input required type="text" id="swimmer-name" name="swimmer-name"
+                class="mt-2 w-full rounded-xl border border-foam-200 bg-foam-50 px-4 py-3 text-sm text-deep-800 outline-none transition focus:border-aqua-500 focus:bg-white" />
+            </div>
+            <div class="sm:col-span-1">
+              <label for="swimmer-age" class="text-sm font-bold text-deep-800">Swimmer's age *</label>
+              <input required type="number" min="5" max="99" id="swimmer-age" name="swimmer-age"
+                class="mt-2 w-full rounded-xl border border-foam-200 bg-foam-50 px-4 py-3 text-sm text-deep-800 outline-none transition focus:border-aqua-500 focus:bg-white" />
+            </div>
+            <div class="sm:col-span-2">
+              <label for="experience" class="text-sm font-bold text-deep-800">Swimming experience *</label>
+              <select required id="experience" name="experience"
+                class="mt-2 w-full rounded-xl border border-foam-200 bg-foam-50 px-4 py-3 text-sm text-deep-800 outline-none transition focus:border-aqua-500 focus:bg-white">
+                <option value="">Choose the closest…</option>
+                <option>Around Stage 5 of Learn to Swim, can swim 25m unaided</option>
+                <option>Completed Learn to Swim, comfortable in all four strokes</option>
+                <option>Currently or previously with another swimming club</option>
+                <option>Adult swimmer (Masters enquiry)</option>
+                <option>Not sure, please advise</option>
+              </select>
+            </div>
+            <div class="sm:col-span-2">
+              <label for="notes" class="text-sm font-bold text-deep-800">Anything we should know?</label>
+              <textarea id="notes" name="notes" rows="4"
+                placeholder="Medical conditions, Special Educational Needs, previous club experience, anything that helps us make the trial safe and comfortable."
+                class="mt-2 w-full rounded-xl border border-foam-200 bg-foam-50 px-4 py-3 text-sm text-deep-800 outline-none transition focus:border-aqua-500 focus:bg-white"></textarea>
+            </div>
+            <div class="sm:col-span-2">
+              <button type="submit"
+                class="group inline-flex w-full items-center justify-center gap-3 rounded-full bg-deep-800 px-8 py-4 text-base font-bold text-white transition hover:bg-deep-700 hover:shadow-xl hover:shadow-deep-800/20 sm:w-auto">
+                Send enquiry
+                <span class="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">→</span>
+              </button>
+              <p class="mt-3 text-xs leading-relaxed text-ink-400">
+                We use your details only to respond to your enquiry, in line with our privacy notice.
+              </p>
+            </div>
+          </form>
+
+          <div class="mt-4 hidden rounded-2xl border-2 border-aqua-400 bg-aqua-400/10 p-5 text-sm font-semibold text-deep-800" data-form-success>
+            Thank you, your enquiry is in. Our membership team will be in touch about the next trial.
+          </div>
+        </div>
+
+        <!-- FAQs -->
+        <div class="reveal" style="--reveal-delay: 0.1s">
+          <h2 class="display text-3xl text-deep-800">Questions, answered</h2>
+          <div class="mt-8 space-y-3">
+            {
+              faqs.map((faq) => (
+                <details class="group rounded-2xl border border-foam-200 bg-white open:border-aqua-400/60">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-bold text-deep-800 [&::-webkit-details-marker]:hidden">
+                    {faq.q}
+                    <span class="text-aqua-500 transition-transform duration-300 group-open:rotate-45" aria-hidden="true">+</span>
+                  </summary>
+                  <p class="px-5 pb-5 text-sm leading-relaxed text-ink-600">{faq.a}</p>
+                </details>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Show the success note when returning from a form submission.
+  if (new URLSearchParams(window.location.search).get("submitted") === "true") {
+    document.querySelector("[data-form-success]")?.classList.remove("hidden");
+    document.querySelector("form[name='join-enquiry']")?.classList.add("hidden");
+  }
+</script>

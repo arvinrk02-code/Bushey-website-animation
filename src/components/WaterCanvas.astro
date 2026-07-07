@@ -1,0 +1,93 @@
+---
+/** Lightweight animated water caustics, layered drifting light blobs on canvas.
+ *  `variant="light"` renders soft aqua tints for white backgrounds;
+ *  default renders glowing light for dark navy sections.
+ *  Degrades to nothing with prefers-reduced-motion or no JS. */
+interface Props {
+  variant?: "dark" | "light";
+}
+const { variant = "dark" } = Astro.props;
+---
+
+<canvas
+  class:list={[
+    "pointer-events-none absolute inset-0 h-full w-full",
+    variant === "dark" ? "opacity-60 mix-blend-screen" : "opacity-50",
+  ]}
+  data-water-canvas
+  data-water-variant={variant}
+  aria-hidden="true"></canvas>
+
+<script>
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  document.querySelectorAll("[data-water-canvas]").forEach((el) => {
+    if (!(el instanceof HTMLCanvasElement) || reduced) return;
+    const canvas = el;
+    const ctx = canvas.getContext("2d");
+    const light = canvas.dataset.waterVariant === "light";
+    let w = 0,
+      h = 0,
+      raf = 0;
+
+    const DPR = Math.min(window.devicePixelRatio || 1, 1.5);
+
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      w = rect.width;
+      h = rect.height;
+      canvas.width = w * DPR;
+      canvas.height = h * DPR;
+      ctx?.setTransform(DPR, 0, 0, DPR, 0, 0);
+    };
+    resize();
+    window.addEventListener("resize", resize, { passive: true });
+
+    // Drifting light blobs, parameterised by sine paths so there's no state to manage.
+    const blobs = Array.from({ length: 7 }, (_, i) => ({
+      seed: i * 137.5,
+      speed: 0.00006 + i * 0.000018,
+      radius: 0.22 + (i % 3) * 0.11,
+      hue: light
+        ? i % 2 === 0
+          ? "16, 197, 221"
+          : "56, 225, 245"
+        : i % 2 === 0
+          ? "56, 225, 245"
+          : "125, 243, 255",
+      alpha: light ? 0.035 + (i % 3) * 0.02 : 0.05 + (i % 3) * 0.025,
+    }));
+
+    const frame = (t) => {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, w, h);
+      for (const b of blobs) {
+        const x = w * (0.5 + 0.45 * Math.sin(t * b.speed + b.seed));
+        const y = h * (0.45 + 0.4 * Math.cos(t * b.speed * 1.35 + b.seed * 2.1));
+        const r = Math.max(w, h) * b.radius;
+        const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+        g.addColorStop(0, `rgba(${b.hue}, ${b.alpha})`);
+        g.addColorStop(1, `rgba(${b.hue}, 0)`);
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+      }
+      raf = requestAnimationFrame(frame);
+    };
+    raf = requestAnimationFrame(frame);
+
+    // Pause when off-screen to save battery.
+    new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            cancelAnimationFrame(raf);
+            raf = requestAnimationFrame(frame);
+          } else {
+            cancelAnimationFrame(raf);
+          }
+        }
+      },
+      { threshold: 0 }
+    ).observe(canvas);
+  });
+</script>

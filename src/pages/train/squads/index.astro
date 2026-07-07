@@ -1,0 +1,84 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../../layouts/Base.astro";
+import PageHero from "../../../components/PageHero.astro";
+import CtaBand from "../../../components/CtaBand.astro";
+
+const squads = (await getCollection("squads")).sort((a, b) => a.data.order - b.data.order);
+const tagColours: Record<string, string> = {
+  Foundation: "bg-aqua-400/15 text-aqua-600",
+  Development: "bg-deep-600/12 text-deep-600",
+  Competitive: "bg-gold-400/20 text-gold-500",
+  Performance: "bg-deep-800 text-white",
+  Adult: "bg-foam-200 text-ink-600",
+};
+---
+
+<Base
+  title="Squads"
+  description="The Bushey ASC squad pathway, eight ability-based squads from Dolphins (age 5) to Performance and Masters, each with clear entry criteria and progression."
+>
+  <PageHero
+    eyebrow="Train"
+    title="The squad pathway"
+    strap="Eight ability-based squads, one clear route. Every swimmer knows where they are, what they're working on, and what comes next."
+  />
+
+  <section class="bg-white py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8">
+      <div class="grid gap-6 md:grid-cols-2">
+        {
+          squads.map((squad, i) => (
+            <a
+              href={`/train/squads/${squad.id}`}
+              class="card-lift reveal group relative overflow-hidden rounded-3xl border border-foam-200 bg-white p-8"
+              style={`--reveal-delay: ${(i % 2) * 0.08}s`}
+            >
+              <span class="display text-outline pointer-events-none absolute -right-2 -top-6 select-none text-[7rem] leading-none text-deep-800/8" aria-hidden="true">
+                {squad.data.order}
+              </span>
+              <div class="flex items-center gap-3">
+                <img
+                  src={`/images/squad-${squad.id}.png`}
+                  alt=""
+                  class="h-10 w-10 object-contain opacity-70 transition group-hover:opacity-100"
+                  width="40"
+                  height="40"
+                  loading="lazy"
+                />
+                <span class:list={["inline-block rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider", tagColours[squad.data.tag]]}>
+                  {squad.data.tag}
+                </span>
+              </div>
+              <h2 class="display mt-4 text-3xl text-deep-800 transition group-hover:text-aqua-600">{squad.data.name}</h2>
+              <p class="mt-3 max-w-md text-sm leading-relaxed text-ink-600">{squad.data.strap}</p>
+              <dl class="mt-6 flex flex-wrap gap-x-8 gap-y-2 text-sm">
+                <div>
+                  <dt class="text-xs font-semibold uppercase tracking-wider text-ink-400">Ages</dt>
+                  <dd class="font-bold text-deep-800">{squad.data.ageGuide}</dd>
+                </div>
+                <div>
+                  <dt class="text-xs font-semibold uppercase tracking-wider text-ink-400">Water time</dt>
+                  <dd class="font-bold text-deep-800">{squad.data.hoursPerWeek}</dd>
+                </div>
+                <div>
+                  <dt class="text-xs font-semibold uppercase tracking-wider text-ink-400">Sessions</dt>
+                  <dd class="font-bold text-deep-800">{squad.data.sessions.length || "By arrangement"}</dd>
+                </div>
+              </dl>
+            </a>
+          ))
+        }
+      </div>
+
+      <p class="reveal mt-10 max-w-2xl text-sm leading-relaxed text-ink-600">
+        Squad placement is decided by our coaching team based on ability, not just age, the age
+        ranges above are a guide. Moves between squads happen when a swimmer is ready, reviewed
+        each term. Questions? Email{" "}
+        <a href="mailto:info@busheyasc.org" class="font-semibold text-deep-600 underline decoration-aqua-400 underline-offset-2">info@busheyasc.org</a>.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

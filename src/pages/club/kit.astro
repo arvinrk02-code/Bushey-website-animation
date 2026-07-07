@@ -1,0 +1,90 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import CtaBand from "../../components/CtaBand.astro";
+
+const kit = [
+  {
+    name: "Club swim hat",
+    price: "Essential",
+    body: "The BASC hat, required for racing, recommended for training. Two is the sensible number; one always goes missing at exactly the wrong moment.",
+    tag: "Racing essential",
+  },
+  {
+    name: "Centenary hat, 1926–2026",
+    price: "Limited",
+    body: "A special-edition gold-detail hat for the centenary year only. When they're gone, they're gone for another hundred years.",
+    tag: "Centenary edition",
+  },
+  {
+    name: "Club t-shirt",
+    price: "Recommended",
+    body: "Team colours for galas and between races. Staying warm between swims is free speed, and we look like a team on poolside.",
+    tag: "Gala day",
+  },
+  {
+    name: "Club hoodie",
+    price: "Recommended",
+    body: "The winter poolside uniform. Doubles as the warm layer every swimmer should have in the bag after training.",
+    tag: "All year",
+  },
+];
+---
+
+<Base title="Club kit" description="Bushey ASC club kit, hats, t-shirts, hoodies and limited-edition centenary wear.">
+  <PageHero
+    eyebrow="The club"
+    title="Club kit"
+    strap="Hats for racing, layers for poolside, and centenary specials for the collection. Ordering is through the Kit Officer, details below."
+    compact
+  />
+
+  <section class="bg-white py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8">
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          kit.map((item, i) => (
+            <div class="card-lift reveal flex flex-col overflow-hidden rounded-3xl border border-foam-200 bg-white" style={`--reveal-delay: ${(i % 4) * 0.06}s`}>
+              <div class:list={[
+                "flex h-40 items-center justify-center",
+                item.tag === "Centenary edition" ? "bg-deep-900" : "bg-foam-100",
+              ]}>
+                <span class:list={[
+                  "display text-5xl",
+                  item.tag === "Centenary edition" ? "text-gold-400" : "text-deep-800/15",
+                ]} aria-hidden="true">B</span>
+              </div>
+              <div class="flex flex-1 flex-col p-6">
+                <span class:list={[
+                  "self-start rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider",
+                  item.tag === "Centenary edition" ? "bg-gold-400/20 text-gold-500" : "bg-aqua-400/15 text-aqua-600",
+                ]}>{item.tag}</span>
+                <h2 class="display mt-3 text-xl text-deep-800">{item.name}</h2>
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{item.body}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="reveal mt-12 rounded-3xl bg-deep-900 p-8 text-center text-white sm:p-10">
+        <h2 class="display text-2xl">How to order</h2>
+        <p class="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/70">
+          Kit orders go through the club's Kit Officer, email with sizes and items and you'll get
+          payment details and a collection date at training. Prices and current stock are listed for
+          members in SwimManager.
+        </p>
+        <a href="mailto:info@busheyasc.org?subject=Kit%20order" class="mt-6 inline-block rounded-full bg-aqua-400 px-8 py-3.5 text-sm font-bold text-deep-900 transition hover:bg-aqua-300">
+          Email a kit order
+        </a>
+      </div>
+
+      <p class="reveal mt-8 text-center text-sm text-ink-600">
+        Wondering what training equipment you need? That's in the{" "}
+        <a href="/athlete-hub/equipment" class="font-bold text-deep-600 underline decoration-aqua-400 underline-offset-4 hover:text-aqua-600">Athlete Hub equipment guide</a>.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

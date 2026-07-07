@@ -1,0 +1,188 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { contacts, eastRegionGroups, hertfordshireGroups } from "../../data/countiesRegionals";
+
+const ladder = [
+  {
+    level: "Club",
+    name: "Club Championships & time trials",
+    body: "Internal meets at Bushey Grove. Where official times start.",
+  },
+  {
+    level: "County",
+    name: "Hertfordshire County Championships",
+    body: "Swum each January–February. County qualifying times from licensed meets in the qualification window.",
+  },
+  {
+    level: "Regional",
+    name: "Swim England East Region Championships",
+    body: "Long course in spring/summer, short course in November. Faster qualifying times than county.",
+  },
+  {
+    level: "National",
+    name: "British & English Summer Championships",
+    body: "National ranking-based qualification. The step beyond region.",
+  },
+];
+---
+
+<Base
+  title="Counties and Regionals"
+  description="Hertfordshire and East Region qualifying times, championship documents, results and contacts for Bushey ASC swimmers."
+>
+  <PageHero
+    eyebrow="Compete"
+    title="Counties and Regionals"
+    strap="Qualifying times, championship documents and official links for Hertfordshire County and Swim England East Region. All PDFs and pages below are on the county and regional websites."
+  />
+
+  <section class="bg-white py-16 sm:py-24">
+    <div class="mx-auto max-w-5xl px-5 sm:px-8">
+      <div class="reveal prose-club max-w-none">
+        <p>
+          Swim faster than the published qualifying time for your event, age group and gender at a
+          <strong>licensed meet</strong> within the qualification window and you're eligible to enter
+          the next level. Coaches track this for you; the official times always live on the county
+          and regional sites linked below.
+        </p>
+      </div>
+
+      <div class="reveal mt-12">
+        <h2 class="display text-2xl text-deep-800">The pathway</h2>
+        <ol class="mt-5 space-y-4">
+          {
+            ladder.map((rung, i) => (
+              <li class="rounded-3xl border border-foam-200 bg-foam-50 p-6">
+                <p class="eyebrow text-aqua-600">{rung.level}</p>
+                <h3 class="display mt-1 text-xl text-deep-800">{rung.name}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-ink-600">{rung.body}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+
+      <div class="reveal mt-14">
+        <h2 class="display text-2xl text-deep-800">Hertfordshire County</h2>
+        <p class="mt-3 max-w-2xl text-sm leading-relaxed text-ink-600">
+          Progressive and best times, age-group standards and 2027 qualifying times from{" "}
+          <a
+            href="https://www.swimherts.org/swimming/county-champions-and-progressive-times/"
+            target="_blank"
+            rel="noopener"
+            class="font-bold text-deep-600 underline decoration-aqua-400 underline-offset-4 hover:text-aqua-600"
+          >
+            Swim England Hertfordshire ↗
+          </a>
+          . For a progression certificate, email the{" "}
+          <a href={`mailto:${contacts.hertfordshireRecords}`} class="font-bold text-deep-600 underline decoration-aqua-400 underline-offset-4 hover:text-aqua-600">
+            records officer
+          </a>
+          .
+        </p>
+
+        <div class="mt-8 space-y-10">
+          {
+            hertfordshireGroups.map((group, gi) => (
+              <div style={`--reveal-delay: ${gi * 0.04}s`}>
+                <h3 class="display text-xl text-deep-800">{group.title}</h3>
+                {group.note && <p class="mt-2 text-sm leading-relaxed text-ink-600">{group.note}</p>}
+                <ul class="mt-4 overflow-hidden rounded-3xl border border-foam-200 bg-white">
+                  {
+                    group.links.map((link, li) => (
+                      <li class:list={["p-5 sm:px-6", li > 0 && "border-t border-foam-100"]}>
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener"
+                          class="text-sm font-bold text-deep-600 underline decoration-aqua-400 underline-offset-4 hover:text-aqua-600"
+                        >
+                          {link.label} ↗
+                        </a>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+
+        <p class="mt-6 text-sm text-ink-600">
+          County swimming queries:{" "}
+          <a href={`mailto:${contacts.hertfordshireSwimming}`} class="font-bold text-deep-600 underline decoration-aqua-400 underline-offset-4 hover:text-aqua-600">
+            {contacts.hertfordshireSwimming}
+          </a>
+        </p>
+      </div>
+
+      <div class="reveal mt-14">
+        <h2 class="display text-2xl text-deep-800">Swim England East Region</h2>
+        <p class="mt-3 max-w-2xl text-sm leading-relaxed text-ink-600">
+          Regional championship entry packs, schedules, qualifying times and records from{" "}
+          <a
+            href="https://www.eastswimming.org/swimming/swimming-competitions/"
+            target="_blank"
+            rel="noopener"
+            class="font-bold text-deep-600 underline decoration-aqua-400 underline-offset-4 hover:text-aqua-600"
+          >
+            Swim England East Region ↗
+          </a>
+          .
+        </p>
+
+        <div class="mt-8 space-y-10">
+          {
+            eastRegionGroups.map((group, gi) => (
+              <div style={`--reveal-delay: ${gi * 0.04}s`}>
+                <h3 class="display text-xl text-deep-800">{group.title}</h3>
+                {group.note && <p class="mt-2 text-sm leading-relaxed text-ink-600">{group.note}</p>}
+                <ul class="mt-4 overflow-hidden rounded-3xl border border-foam-200 bg-white">
+                  {
+                    group.links.map((link, li) => (
+                      <li class:list={["p-5 sm:px-6", li > 0 && "border-t border-foam-100"]}>
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener"
+                          class="text-sm font-bold text-deep-600 underline decoration-aqua-400 underline-offset-4 hover:text-aqua-600"
+                        >
+                          {link.label} ↗
+                        </a>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+
+        <p class="mt-6 text-sm text-ink-600">
+          Regional swimming queries:{" "}
+          <a href={`mailto:${contacts.eastRegion}`} class="font-bold text-deep-600 underline decoration-aqua-400 underline-offset-4 hover:text-aqua-600">
+            {contacts.eastRegion}
+          </a>
+        </p>
+      </div>
+
+      <div class="reveal mt-12 rounded-3xl bg-deep-900 p-8 text-white sm:p-10">
+        <h2 class="display text-xl">At the club</h2>
+        <p class="mt-3 text-sm leading-relaxed text-white/70">
+          Open meets on our{" "}
+          <a href="/compete/fixtures" class="font-bold text-aqua-300 underline underline-offset-4">upcoming galas page</a>{" "}
+          are chosen to give qualification opportunities. Not sure which events to enter? Ask your coach, and check SwimManager for entry deadlines.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Chasing a county or regional time?"
+    strap="The margins live in sleep, fuelling, starts and turns. The Athlete Hub covers the details."
+    buttonLabel="Visit the Athlete Hub"
+    buttonHref="/athlete-hub"
+  />
+</Base>

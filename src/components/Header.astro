@@ -1,0 +1,174 @@
+---
+import { nav, flatNav, site } from "../data/site";
+
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isActive = (href: string) =>
+  href === "/" ? currentPath === "/" : currentPath.startsWith(href.split("/").slice(0, 2).join("/"));
+---
+
+<header id="site-header" class="fixed inset-x-0 top-0 z-50" data-header>
+  <div
+    class="absolute inset-0 border-b border-foam-200/60 bg-white/90 backdrop-blur-md transition-shadow duration-500 data-[solid]:shadow-sm"
+    data-header-bg
+  >
+  </div>
+
+  <div class="relative mx-auto flex max-w-7xl items-center justify-between gap-6 px-5 py-3.5 sm:px-8">
+    <a href="/" class="group flex items-center gap-3" aria-label="Bushey ASC home">
+      <img
+        src="/images/basc-logo-round.jpeg"
+        alt=""
+        class="h-11 w-11 rounded-full object-cover ring-1 ring-foam-200 transition-transform duration-500 group-hover:scale-105"
+        width="44"
+        height="44"
+      />
+      <span class="hidden flex-col leading-none min-[420px]:flex lg:hidden xl:flex">
+        <span class="display text-base text-deep-800">Bushey ASC</span>
+        <span class="mt-1 text-[0.6rem] font-bold uppercase tracking-[0.28em] text-gold-500">Est. 1926 · Centenary year</span>
+      </span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden items-center gap-0.5 lg:flex" aria-label="Primary">
+      {
+        nav.map((group) => (
+          <div class="group/nav relative">
+            <a
+              href={group.href}
+              class:list={[
+                "flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-semibold transition hover:bg-foam-100 hover:text-deep-800",
+                isActive(group.href) ? "text-aqua-600" : "text-ink-600",
+              ]}
+            >
+              {group.label}
+              <svg class="h-3 w-3 opacity-60" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+            </a>
+            <div class="invisible absolute left-1/2 top-full z-50 w-72 -translate-x-1/2 pt-3 opacity-0 transition-all duration-300 group-hover/nav:visible group-hover/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:opacity-100">
+              <div class="overflow-hidden rounded-2xl border border-foam-200 bg-white p-2 shadow-2xl shadow-deep-900/10">
+                {group.links.map((link) => (
+                  <a href={link.href} class="block rounded-xl px-4 py-2.5 transition hover:bg-foam-100">
+                    <span class="block text-sm font-semibold text-deep-800">{link.label}</span>
+                    {link.description && <span class="mt-0.5 block text-xs text-ink-400">{link.description}</span>}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+      {
+        flatNav.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              "rounded-full px-3.5 py-2 text-sm font-semibold transition hover:bg-foam-100 hover:text-deep-800",
+              isActive(link.href) ? "text-aqua-600" : "text-ink-600",
+            ]}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a
+        href={site.swimManagerUrl}
+        target="_blank"
+        rel="noopener"
+        class="hidden text-xs font-semibold uppercase tracking-wider text-ink-400 transition hover:text-deep-800 md:block"
+      >
+        SwimManager ↗
+      </a>
+      <a
+        href="/join"
+        class="hidden rounded-full bg-deep-800 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-deep-700 hover:shadow-lg hover:shadow-deep-800/20 sm:block"
+      >
+        Join us
+      </a>
+
+      <!-- Mobile menu button -->
+      <button
+        type="button"
+        class="flex h-11 w-11 items-center justify-center rounded-full bg-foam-100 text-deep-800 lg:hidden"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        data-menu-toggle
+      >
+        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true" data-icon-open>
+          <path d="M3 6H17M3 10H17M3 14H17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+        <svg class="hidden h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true" data-icon-close>
+          <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="hidden max-h-[calc(100dvh-68px)] overflow-y-auto border-t border-foam-200 bg-white lg:hidden"
+    data-mobile-menu
+  >
+    <nav class="mx-auto max-w-7xl space-y-6 px-6 py-8" aria-label="Mobile">
+      {
+        nav.map((group) => (
+          <div>
+            <p class="eyebrow mb-2 text-aqua-600">{group.label}</p>
+            <div class="grid gap-0.5">
+              {group.links.map((link) => (
+                <a href={link.href} class="rounded-lg px-3 py-2 text-base font-semibold text-deep-800 transition hover:bg-foam-100">
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+      <div class="grid gap-0.5">
+        {
+          flatNav.map((link) => (
+            <a href={link.href} class="rounded-lg px-3 py-2 text-base font-semibold text-deep-800 transition hover:bg-foam-100">
+              {link.label}
+            </a>
+          ))
+        }
+        <a href={site.swimManagerUrl} target="_blank" rel="noopener" class="rounded-lg px-3 py-2 text-base font-semibold text-ink-400">
+          SwimManager ↗
+        </a>
+      </div>
+      <a href="/join" class="block rounded-full bg-deep-800 px-6 py-3.5 text-center text-base font-bold text-white">
+        Join us
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const headerBg = document.querySelector("[data-header-bg]");
+  const toggle = document.querySelector("[data-menu-toggle]");
+  const menu = document.querySelector("[data-mobile-menu]");
+  const iconOpen = document.querySelector("[data-icon-open]");
+  const iconClose = document.querySelector("[data-icon-close]");
+
+  const onScroll = () => {
+    if (!(headerBg instanceof HTMLElement)) return;
+    if (window.scrollY > 24) headerBg.setAttribute("data-solid", "");
+    else headerBg.removeAttribute("data-solid");
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  toggle?.addEventListener("click", () => {
+    const open = menu?.classList.toggle("hidden") === false;
+    toggle.setAttribute("aria-expanded", String(open));
+    iconOpen?.classList.toggle("hidden", open);
+    iconClose?.classList.toggle("hidden", !open);
+    if (open && headerBg instanceof HTMLElement) headerBg.setAttribute("data-solid", "");
+    else onScroll();
+  });
+</script>

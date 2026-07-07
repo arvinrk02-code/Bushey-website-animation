@@ -1,0 +1,93 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import CtaBand from "../../components/CtaBand.astro";
+
+const squads = (await getCollection("squads"))
+  .filter((s) => s.data.sessions.length > 0)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base
+  title="Training timetable"
+  description="The full Bushey ASC training timetable. Every squad, every session, across all five pools."
+>
+  <PageHero
+    eyebrow="Train"
+    title="Training timetable"
+    strap="Every session across our five pools. Squad moves are reviewed each term, and invitation sessions are confirmed directly by coaches."
+    compact
+  />
+
+  <section class="bg-white py-16 sm:py-24">
+    <div class="mx-auto max-w-5xl px-5 sm:px-8">
+      <div class="reveal -mt-4 mb-12 overflow-hidden rounded-3xl shadow-lg shadow-deep-900/10">
+        <img
+          src="/images/pool-banner.jpg"
+          alt="Lane ropes stretching down a swimming pool"
+          class="h-36 w-full object-cover sm:h-44"
+          width="1024"
+          height="226"
+          loading="lazy"
+        />
+      </div>
+      <div class="space-y-8">
+        {
+          squads.map((squad, i) => (
+            <div class="reveal overflow-hidden rounded-3xl border border-foam-200 bg-white" style={`--reveal-delay: ${Math.min(i * 0.05, 0.2)}s`}>
+              <div class="flex flex-wrap items-baseline justify-between gap-2 bg-deep-900 px-6 py-4 sm:px-8">
+                <h2 class="display text-xl text-white">{squad.data.name}</h2>
+                <a href={`/train/squads/${squad.id}`} class="text-xs font-bold uppercase tracking-wider text-aqua-300 hover:text-aqua-400">
+                  Squad details →
+                </a>
+              </div>
+              <table class="w-full text-sm">
+                <thead class="sr-only">
+                  <tr>
+                    <th>Day</th>
+                    <th>Time</th>
+                    <th>Duration</th>
+                    <th>Location</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {squad.data.sessions.map((s, j) => {
+                    const [sh, sm] = s.start.split(":").map(Number);
+                    const [eh, em] = s.end.split(":").map(Number);
+                    const mins = eh * 60 + em - (sh * 60 + sm);
+                    return (
+                      <tr class:list={[j > 0 && "border-t border-foam-100"]}>
+                        <td class="w-32 px-6 py-3.5 font-bold text-deep-800 sm:px-8">{s.day}</td>
+                        <td class="px-4 py-3.5 font-mono text-deep-600">
+                          {s.start} – {s.end}
+                        </td>
+                        <td class="hidden px-4 py-3.5 text-ink-400 sm:table-cell">{mins} mins</td>
+                        <td class="px-6 py-3.5 text-right text-ink-600 sm:px-8">
+                          {s.location}
+                          {s.note && <span class="ml-2 rounded-full bg-gold-400/15 px-2 py-0.5 text-xs font-semibold text-gold-500">{s.note}</span>}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="reveal mt-10 flex flex-col gap-4 rounded-3xl border border-foam-200 bg-white p-7 sm:flex-row sm:items-center sm:justify-between">
+        <p class="max-w-xl text-sm leading-relaxed text-ink-600">
+          Not sure where a pool is? All five venues with addresses, parking notes and maps are on
+          the locations page.
+        </p>
+        <a href="/train/locations" class="shrink-0 rounded-full bg-deep-800 px-6 py-3 text-center text-sm font-bold text-white transition hover:bg-deep-700">
+          Pool locations →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
