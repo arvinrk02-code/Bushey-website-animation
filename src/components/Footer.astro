@@ -41,7 +41,7 @@ const year = new Date().getFullYear();
             href={site.social.instagram}
             target="_blank"
             rel="noopener"
-            class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-sm font-bold transition hover:bg-aqua-400 hover:text-deep-900"
+            class="press flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-sm font-bold transition hover:bg-aqua-400 hover:text-deep-900"
             aria-label="Bushey ASC on Instagram"
           >
             IG
@@ -50,7 +50,7 @@ const year = new Date().getFullYear();
             href={site.social.tiktok}
             target="_blank"
             rel="noopener"
-            class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-sm font-bold transition hover:bg-aqua-400 hover:text-deep-900"
+            class="press flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-sm font-bold transition hover:bg-aqua-400 hover:text-deep-900"
             aria-label="Bushey ASC on TikTok"
           >
             TT
@@ -63,10 +63,10 @@ const year = new Date().getFullYear();
           nav.map((group) => (
             <div>
               <p class="eyebrow mb-4 text-aqua-400">{group.label}</p>
-              <ul class="space-y-2.5">
+              <ul class="space-y-1">
                 {group.links.map((link) => (
                   <li>
-                    <a href={link.href} class="text-sm text-white/65 transition hover:text-white">
+                    <a href={link.href} class="swim-link inline-block py-1 text-sm text-white/65 transition hover:text-white">
                       {link.label}
                     </a>
                   </li>
@@ -88,9 +88,9 @@ const year = new Date().getFullYear();
         <p>© {year} Bushey Amateur Swimming Club.</p>
       </div>
       <div class="flex gap-6">
-        <a href="/welfare" class="transition hover:text-white">Welfare</a>
-        <a href="/club/policies" class="transition hover:text-white">Privacy & policies</a>
-        <a href={site.swimManagerUrl} target="_blank" rel="noopener" class="transition hover:text-white">SwimManager</a>
+        <a href="/welfare" class="swim-link inline-block py-1.5 transition hover:text-white">Welfare</a>
+        <a href="/club/policies" class="swim-link inline-block py-1.5 transition hover:text-white">Privacy & policies</a>
+        <a href={site.swimManagerUrl} target="_blank" rel="noopener" class="swim-link inline-block py-1.5 transition hover:text-white">SwimManager</a>
       </div>
     </div>
   </div>

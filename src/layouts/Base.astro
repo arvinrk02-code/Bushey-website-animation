@@ -33,6 +33,28 @@ const fullTitle = title === site.shortName ? title : `${title} · ${site.shortNa
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#051423" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      // Gate reveal animations on JS so content is visible by default: no blank
+      // sections if JS is disabled, slow, or the page is prerendered. Set before
+      // first paint to avoid a flash. reveal.js does the actual observing.
+      (function () {
+        var root = document.documentElement;
+        if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        root.classList.add("reveal-ready");
+        // Safety net: if reveal.js never runs (e.g. load error), reveal all.
+        addEventListener("load", function () {
+          setTimeout(function () {
+            if (!root.hasAttribute("data-reveal-active")) {
+              document
+                .querySelectorAll(".reveal")
+                .forEach(function (el) {
+                  el.classList.add("is-visible");
+                });
+            }
+          }, 400);
+        });
+      })();
+    </script>
   </head>
   <body class="min-h-dvh antialiased">
     <a

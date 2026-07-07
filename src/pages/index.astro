@@ -1,5 +1,7 @@
 ---
 import { getCollection } from "astro:content";
+import { Picture } from "astro:assets";
+import heroImage from "../assets/welcome-slider.png";
 import Base from "../layouts/Base.astro";
 import WaterCanvas from "../components/WaterCanvas.astro";
 import WaveDivider from "../components/WaveDivider.astro";
@@ -59,14 +61,14 @@ const MONTH_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Se
           <div class="reveal mt-10 flex flex-wrap items-center gap-4" style="--reveal-delay: 0.3s">
             <a
               href="/join"
-              class="group inline-flex items-center gap-3 rounded-full bg-deep-800 px-8 py-4 text-base font-bold text-white transition hover:bg-deep-700 hover:shadow-xl hover:shadow-deep-800/20"
+              class="press group inline-flex items-center gap-3 rounded-full bg-deep-800 px-8 py-4 text-base font-bold text-white transition hover:bg-deep-700 hover:shadow-xl hover:shadow-deep-800/20"
             >
               Join the club
               <span class="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">→</span>
             </a>
             <a
               href="/train/squads"
-              class="inline-flex items-center gap-3 rounded-full border-2 border-foam-200 px-8 py-4 text-base font-bold text-deep-800 transition hover:border-aqua-400 hover:text-aqua-600"
+              class="press inline-flex items-center gap-3 rounded-full border-2 border-foam-200 px-8 py-4 text-base font-bold text-deep-800 transition hover:border-aqua-400 hover:text-aqua-600"
             >
               Explore the squads
             </a>
@@ -76,12 +78,15 @@ const MONTH_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Se
         <!-- Hero image -->
         <div class="reveal relative" style="--reveal-delay: 0.25s">
           <div class="absolute -inset-3 rotate-2 rounded-[2rem] bg-gradient-to-br from-aqua-400/40 to-gold-400/30" aria-hidden="true"></div>
-          <img
-            src="/images/welcome-slider.png"
+          <Picture
+            src={heroImage}
+            formats={["avif", "webp"]}
+            widths={[480, 768, 1024, 1500]}
+            sizes="(min-width: 1024px) 512px, 100vw"
             alt="A Bushey ASC swimmer mid-butterfly stroke"
             class="relative w-full -rotate-1 rounded-[2rem] object-cover shadow-2xl shadow-deep-900/25 transition-transform duration-700 hover:rotate-0"
-            width="1024"
-            height="440"
+            pictureAttributes={{ class: "relative block" }}
+            loading="eager"
             fetchpriority="high"
           />
           <div class="absolute -bottom-5 -left-5 flex items-center gap-3 rounded-2xl bg-white px-5 py-3 shadow-xl shadow-deep-900/10">
@@ -130,7 +135,6 @@ const MONTH_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Se
     <div class="relative mx-auto max-w-7xl px-5 sm:px-8">
       <SectionHeader
         dark
-        eyebrow="The pathway"
         title="One lane, seven steps"
         strap="Every Bushey swimmer follows the same pathway, from first strokes in Dolphins to county finals with Performance. Tap a squad to see where your swimmer fits."
       />
@@ -147,8 +151,8 @@ const MONTH_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Se
         <!-- News -->
         <div>
           <div class="flex flex-wrap items-end justify-between gap-4">
-            <SectionHeader eyebrow="Latest" title="Club news" />
-            <a href="/news" class="reveal mb-1 text-sm font-bold text-deep-600 underline decoration-aqua-400 underline-offset-4 hover:text-aqua-600">
+            <SectionHeader title="Club news" />
+            <a href="/news" class="swim-link reveal mb-1 inline-block py-1 text-sm font-bold text-deep-600 hover:text-aqua-600">
               All news →
             </a>
           </div>
@@ -177,7 +181,7 @@ const MONTH_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Se
                     )
                   }
                   <div class="p-6">
-                    <span class="text-xs font-bold uppercase tracking-[0.18em] text-gold-500">
+                    <span class="text-xs font-bold uppercase tracking-[0.18em] text-gold-600">
                       {post.data.category} · {post.data.date.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
                     </span>
                     <h3 class="mt-1.5 text-xl font-bold text-deep-800 transition group-hover:text-aqua-600">{post.data.title}</h3>
@@ -192,8 +196,8 @@ const MONTH_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Se
         <!-- Upcoming galas -->
         <div>
           <div class="flex flex-wrap items-end justify-between gap-4">
-            <SectionHeader eyebrow="On the blocks" title="Typical season ahead" />
-            <a href="/compete/fixtures" class="reveal mb-1 text-sm font-bold text-deep-600 underline decoration-aqua-400 underline-offset-4 hover:text-aqua-600">
+            <SectionHeader title="Typical season ahead" />
+            <a href="/compete/fixtures" class="swim-link reveal mb-1 inline-block py-1 text-sm font-bold text-deep-600 hover:text-aqua-600">
               Upcoming galas →
             </a>
           </div>
