@@ -15,16 +15,19 @@ const isActive = (href: string) =>
 
   <div class="relative mx-auto flex max-w-7xl items-center justify-between gap-6 px-5 py-3.5 sm:px-8">
     <a href="/" class="group flex items-center gap-3" aria-label="Bushey ASC home">
-      <img
-        src="/images/basc-logo-round.jpeg"
-        alt=""
-        class="h-11 w-11 rounded-full object-cover ring-1 ring-foam-200 transition-transform duration-500 group-hover:scale-105"
-        width="44"
-        height="44"
-      />
+      <span class="logo-mark relative block h-11 w-11" data-logo>
+        <img
+          src="/images/basc-logo-round.jpeg"
+          alt=""
+          class="logo-badge h-11 w-11 rounded-full object-cover ring-1 ring-foam-200 transition-transform duration-500 group-hover:scale-105"
+          width="44"
+          height="44"
+        />
+        <span class="logo-empty" aria-hidden="true"></span>
+      </span>
       <span class="hidden flex-col leading-none min-[420px]:flex lg:hidden xl:flex">
         <span class="display text-base text-deep-800">Bushey ASC</span>
-        <span class="mt-1 text-[0.6rem] font-bold uppercase tracking-[0.28em] text-gold-600">Est. 1926 · Centenary year</span>
+        <span class="mt-1 text-[0.6rem] font-bold uppercase tracking-[0.28em] text-gold-600">Est. 1926 <span data-waterdot>·</span> Centenary year</span>
       </span>
     </a>
 
@@ -171,4 +174,134 @@ const isActive = (href: string) =>
     if (open && headerBg instanceof HTMLElement) headerBg.setAttribute("data-solid", "");
     else onScroll();
   });
+
+  // One-time dolphin entrance (homepage, once per session). The badge starts
+  // empty; the dolphin surfaces from the "w" in Swimming and swims up to the
+  // waterline (the blue/white boundary at the header's foot, in line with the
+  // "·" between 1926 and Centenary), then hops in a low, near-horizontal arc
+  // into the logo and becomes its dolphin. The body genuinely undulates — a
+  // travelling wave head→tail with a vertical fluke stroke, rendered per-frame
+  // on a canvas. Reduced-motion / no-JS just show the full logo.
+  (function dolphinSwim() {
+    const logoMark = document.querySelector("[data-logo]");
+    const header = document.querySelector("[data-header]");
+    const dot = document.querySelector("[data-waterdot]");
+    const origin = document.querySelector("[data-swim-origin]");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!logoMark || !header || !origin || reduced) return;
+    try {
+      if (sessionStorage.getItem("dolphinSwam") === "1") return;
+      sessionStorage.setItem("dolphinSwam", "1");
+    } catch (e) {
+      return;
+    }
+
+    // Empty the badge straight away so the logo starts dolphin-less.
+    logoMark.classList.add("is-swimming");
+
+    // Pre-render the dolphin into a small buffer we slice into columns.
+    const BW = 120; // buffer/render width in px
+    const buffer = document.createElement("canvas");
+    const img = new Image();
+    let BH = 0;
+    img.onload = () => {
+      BH = Math.round((BW * img.height) / img.width);
+      buffer.width = BW;
+      buffer.height = BH;
+      buffer.getContext("2d").drawImage(img, 0, 0, BW, BH);
+      window.setTimeout(() => requestAnimationFrame(start), 1000);
+      window.setTimeout(() => logoMark.classList.remove("is-swimming"), 7500);
+    };
+    img.onerror = () => logoMark.classList.remove("is-swimming");
+    img.src = "/images/dolphin-leap.png";
+
+    function start() {
+      const or = origin.getBoundingClientRect();
+      const hb = header.getBoundingClientRect();
+      const lb = logoMark.getBoundingClientRect();
+      if (or.width === 0 || lb.width === 0 || !BH) {
+        logoMark.classList.remove("is-swimming");
+        return;
+      }
+      const sx = or.left + or.width / 2; // the "w" in Swimming
+      const sy = or.top + or.height / 2;
+      const waterY = hb.bottom; // blue hero / white header boundary
+      const logoX = lb.left + lb.width / 2;
+      const logoY = lb.top + lb.height / 2;
+      let surfX = logoX + 40; // surface in line with the dot when visible
+      if (dot) {
+        const dr = dot.getBoundingClientRect();
+        if (dr.width > 0) surfX = dr.left + dr.width / 2;
+      }
+
+      const suX = surfX - sx; // start (w) -> surface
+      const suY = waterY - sy;
+      const loX = logoX - sx; // start (w) -> logo
+      const loY = logoY - sy;
+
+      // Canvas body with headroom above/below for the fluke stroke.
+      const PAD = 20;
+      const DW = 38; // display width
+      const canvas = document.createElement("canvas");
+      canvas.width = BW;
+      canvas.height = BH + PAD * 2;
+      canvas.className = "swim-dolphin-body";
+      canvas.style.width = DW + "px";
+      const DH = (canvas.height * DW) / BW;
+      const ctx = canvas.getContext("2d");
+
+      const wrap = document.createElement("span");
+      wrap.className = "swim-dolphin";
+      wrap.setAttribute("aria-hidden", "true");
+      wrap.style.left = sx - DW / 2 + "px";
+      wrap.style.top = sy - DH / 2 + "px";
+      wrap.appendChild(canvas);
+      document.body.appendChild(wrap);
+
+      // Body undulation: a travelling wave head(left)→tail(right); amplitude
+      // grows toward the tail (vertical fluke stroke). Calms as it settles.
+      const AMP = 18;
+      const WAVES = 1.15;
+      const SPEED = 11;
+      const DUR = 2100;
+      const t0 = performance.now();
+      let raf = 0;
+      let running = true;
+      const render = (now) => {
+        const t = (now - t0) / 1000;
+        const env = Math.max(0, Math.min(1, (DUR - (now - t0)) / 520)); // calm at the end
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let x = 0; x < BW; x++) {
+          const nx = x / BW;
+          const dy = AMP * env * Math.pow(nx, 1.7) * Math.sin(WAVES * nx * Math.PI * 2 - SPEED * t);
+          ctx.drawImage(buffer, x, 0, 1, BH, x, PAD + dy, 1, BH);
+        }
+        if (running) raf = requestAnimationFrame(render);
+      };
+      raf = requestAnimationFrame(render);
+
+      // Path: swim up-left from the "w" to the waterline at the dot, then a
+      // low, near-horizontal hop into the logo, levelling to the resting pose.
+      const anim = wrap.animate(
+        [
+          { transform: `translate(0px, 0px) rotate(52deg) scale(0.55)`, opacity: 0 },
+          { transform: `translate(${suX * 0.2 + 4}px, ${suY * 0.24}px) rotate(54deg) scale(0.66)`, opacity: 1, offset: 0.12 },
+          { transform: `translate(${suX * 0.5 - 4}px, ${suY * 0.56}px) rotate(48deg) scale(0.78)`, offset: 0.34 },
+          { transform: `translate(${suX * 0.8 + 3}px, ${suY * 0.84}px) rotate(42deg) scale(0.86)`, offset: 0.5 },
+          { transform: `translate(${suX}px, ${suY}px) rotate(34deg) scale(0.9)`, offset: 0.6 },
+          { transform: `translate(${suX + (loX - suX) * 0.62}px, ${loY - 14}px) rotate(12deg) scale(1)`, offset: 0.82 },
+          { transform: `translate(${loX}px, ${loY}px) rotate(0deg) scale(1)`, offset: 1 },
+        ],
+        { duration: DUR, easing: "cubic-bezier(0.38, 0.02, 0.3, 1)", fill: "forwards" }
+      );
+
+      anim.onfinish = () => {
+        running = false;
+        cancelAnimationFrame(raf);
+        logoMark.classList.remove("is-swimming");
+        wrap.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, easing: "ease-out", fill: "forwards" }).onfinish =
+          () => wrap.remove();
+      };
+    }
+  })();
 </script>
