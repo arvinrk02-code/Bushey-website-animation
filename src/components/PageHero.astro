@@ -30,12 +30,12 @@ const { eyebrow, title, strap, compact = false } = Astro.props;
       compact ? "pb-20 pt-32 sm:pb-24 sm:pt-40" : "pb-24 pt-36 sm:pb-32 sm:pt-48",
     ]}
   >
-    <p class="reveal flex items-center gap-3 text-xs font-bold uppercase tracking-[0.26em] text-aqua-600">
-      <span class="inline-block h-px w-12 hairline-aqua" aria-hidden="true"></span>
+    <p class="eyebrow reveal flex items-center gap-3 text-aqua-600">
+      <span class="inline-block h-px w-8 bg-aqua-500" aria-hidden="true"></span>
       {eyebrow}
     </p>
     <h1
-      class="display reveal mt-5 max-w-4xl text-[clamp(2.75rem,7vw,5.5rem)] leading-[0.9] text-deep-800"
+      class="display reveal mt-4 max-w-4xl text-[clamp(2.75rem,7.5vw,5.5rem)] text-deep-800"
       style="--reveal-delay: 0.08s"
     >
       {title}
