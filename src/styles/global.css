@@ -60,6 +60,13 @@ body {
   color: var(--color-deep-900);
 }
 
+/* Consistent keyboard focus ring — on-brand aqua, legible on light and dark.
+   :focus-visible keeps it to keyboard/AT focus, never on mouse click. */
+:focus-visible {
+  outline: 2px solid var(--color-aqua-500);
+  outline-offset: 2px;
+}
+
 /* =========================================================
    Display typography
    ========================================================= */
